@@ -1,11 +1,17 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:shahid_mahamum_sir/example/example_test.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
 import 'package:shahid_mahamum_sir/ui/pages/homepage.dart';
 
+import 'example/expandable_text.dart';
+import 'ui/pages/appointment_page/component/horizontal_date_picker.dart';
+
 void main(){
   runApp(const MyApp());
+  ///runApp(const MyAppWhatsApp());
   //runApp(MyAppExample());
   //runApp(TabBarDemo());
   //runApp(SettingsUI());
@@ -27,7 +33,7 @@ class MyApp extends StatelessWidget{
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: () =>  MaterialApp(
+        builder: (_) =>  MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           builder: (context, widget) {
@@ -44,7 +50,9 @@ class MyApp extends StatelessWidget{
             //primarySwatch: Colors.blue,
           ),
           //home: const HomePage(),
-          home: HomePage(),
+          home: const HomePage(),
+          //home: const HorizontalDateView(),
+          //home: const DemoAppReadMoreText(),
         ),
       ),
     );

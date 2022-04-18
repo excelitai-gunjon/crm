@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  call_with_whatsapp:
+    dependency: "direct main"
+    description:
+      name: call_with_whatsapp
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   characters:
     dependency: transitive
     description:
@@ -75,7 +82,7 @@ packages:
       name: flutter_screenutil
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.3.1"
+    version: "5.4.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -183,14 +190,14 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.1.47+1"
+    version: "20.1.48"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.1.47"
+    version: "20.1.48"
   term_glyph:
     dependency: transitive
     description:

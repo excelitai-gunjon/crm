@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:shahid_mahamum_sir/ui/pages/appointment_page/appointment_page2.dart';
 import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/custom_clipper_background_bottom.dart';
 import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/custom_clipper_background_upper.dart';
 import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/custom_tag.dart';
@@ -441,18 +442,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           color: Colors.grey,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => _selectDate(context),
-                        child: Row(
-                          children: [
-                            Text(formattedDate.toString(),style: TextStyle(
-                              fontSize: ScreenUtil().setSp(20),
-                              fontWeight: FontWeight.bold,
-                            ),),
-                            const Icon(Icons.keyboard_arrow_down_outlined),
-                          ],
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () => _selectDate(context),
+                      //   child: Row(
+                      //     children: [
+                      //       Text(formattedDate.toString(),style: TextStyle(
+                      //         fontSize: ScreenUtil().setSp(20),
+                      //         fontWeight: FontWeight.bold,
+                      //       ),),
+                      //       const Icon(Icons.keyboard_arrow_down_outlined),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -475,7 +476,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 //         vertical: 10, horizontal: 9)),
                 backgroundColor:
                 MaterialStateProperty.all<Color>(
-                    Colors.red),
+                    Colors.red
+                ),
                 //fixedSize: MaterialStateProperty.all<Size>(Size.infinite),
                 shape: MaterialStateProperty.all<
                     RoundedRectangleBorder>(
@@ -483,9 +485,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         borderRadius:
                         BorderRadius.circular(30),
                         side: const BorderSide(
-                            color: Colors.red)))),
-            onPressed: () {
-
+                            color: Colors.red)
+                    )
+                )
+            ),
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>const AppointmentPage2()));
             },
             child: const Text("Book Appointment"),
           ),
