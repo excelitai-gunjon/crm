@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:shahid_mahamum_sir/example/expandable_text.dart';
 import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/horizontal_date_picker.dart';
 
+import 'component/custom_appointment_button.dart';
+
 class AppointmentPage2 extends StatefulWidget {
   const AppointmentPage2({Key? key}) : super(key: key);
 
@@ -216,6 +218,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                 ),
                 const HorizontalDateView(),
 
+                const CustomAppointmentButton()
               ],
             ),
           ),
