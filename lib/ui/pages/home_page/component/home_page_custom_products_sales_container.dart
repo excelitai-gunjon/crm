@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_Custom_total_deals_tab.dart';
 
 class CustomProductSalesContainer extends StatelessWidget {
   CustomProductSalesContainer({Key? key,this.size}) : super(key: key);

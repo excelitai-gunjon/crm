@@ -40,6 +40,8 @@ dependencies:
   flutter_screenutil: ^5.3.1
   intl: ^0.17.0
   call_with_whatsapp: ^0.0.1
+  email_validator: ^2.0.1
+  dropdown_button2: ^1.4.0
 
 dev_dependencies:
   flutter_test:

@@ -3,25 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_custom_deals_tab_bar_view.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_custom_total_deals_container.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_tab.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_tab_bar.dart';
+import 'package:shahid_mahamum_sir/ui/pages/home_page/component/home_page_tab.dart';
+import 'package:shahid_mahamum_sir/ui/pages/home_page/component/home_page_tab_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> {
   //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     final totalDealsTabState = Provider.of<TotalDealsTabState>(context);
     final customScafoldKey = Provider.of<CustomScafoldKey>(context);
-    //final top=
     final size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height,
@@ -178,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.menu,
                 color: Colors.white,
               ),
-              onPressed: () {
+              onPressed: (){
                 final customScafoldKey =
                     Provider.of<CustomScafoldKey>(context, listen: false);
                 customScafoldKey.scaffoldKey.currentState!.openDrawer();
@@ -287,6 +282,7 @@ class MyCustomClipperTop extends CustomClipper<Path> {
   @override
   bool shouldReclip(covariant CustomClipper oldClipper) {
     // TODO: implement shouldReclip
+    return false;
     throw UnimplementedError();
     //return true;
   }
@@ -294,7 +290,7 @@ class MyCustomClipperTop extends CustomClipper<Path> {
 
 class MyCustomClipperBottom extends CustomClipper<Path> {
   @override
-  Path getClip(Size size) {
+  Path getClip(Size size){
     Path path = Path();
     path.moveTo(size.width, size.height);
     path.lineTo(size.width, size.height / 7);
@@ -307,12 +303,10 @@ class MyCustomClipperBottom extends CustomClipper<Path> {
     path.lineTo(size.width / 7, size.height); //size.height);
     return path;
   }
-
   @override
   bool shouldReclip(covariant CustomClipper oldClipper) {
     // TODO: implement shouldReclip
+    return false;
     throw UnimplementedError();
   }
-
-
 }

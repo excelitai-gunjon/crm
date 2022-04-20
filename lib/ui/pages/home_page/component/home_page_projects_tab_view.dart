@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shahid_mahamum_sir/model/projects_menu_model_class.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_custom_total_deals_container.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_total_projects_view.dart';
+import 'package:shahid_mahamum_sir/ui/pages/home_page/component/home_page_custom_total_deals_container.dart';
+import 'package:shahid_mahamum_sir/ui/pages/home_page/component/home_page_total_projects_view.dart';
 
 class ProjectsTabView extends StatelessWidget {
   ProjectsTabView({Key? key,this.size}) : super(key: key);

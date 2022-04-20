@@ -71,32 +71,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           height: 100,
                           width: MediaQuery.of(context).size.width * .5,
                           color: Colors.red,
-                          // child: Stack(
-                          //   children: [
-                          //     Container(
-                          //       height: ScreenUtil().screenHeight,
-                          //       width: ScreenUtil().screenWidth,
-                          //       //color: Colors.grey,
-                          //       child: GridView.builder(
-                          //         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          //             crossAxisCount: 1,
-                          //           mainAxisSpacing: 1,
-                          //           crossAxisSpacing: 1,
-                          //         ),
-                          //         itemBuilder: (context,index){
-                          //           return Container(
-                          //             height: 1,
-                          //             width: 1,
-                          //             decoration: const BoxDecoration(
-                          //               color: Colors.amber,
-                          //               shape: BoxShape.circle
-                          //             ),
-                          //           );
-                          //         },
-                          //       ),
-                          //     )
-                          //   ],
-                          // ),
                         ),
                       ),
                     ),
@@ -379,38 +353,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         ),
                       ),
                     ),
-                    // Align(
-                    //   alignment: Alignment.bottomCenter,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(
-                    //         horizontal: 20, vertical: 2,),
-                    //     child: SizedBox(
-                    //       //color: Colors.red,
-                    //       height: ScreenUtil().setHeight(200),
-                    //       width: ScreenUtil().screenWidth,
-                    //       child: Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           Text(
-                    //             "About Dr. Shahid Mahamum",
-                    //             style: TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: ScreenUtil().setSp(15),
-                    //             ),
-                    //           ),
-                    //           Text(
-                    //             "Leukemia, also spelled leukaemia, is a group of blood cancers that usually begin in the bone marrow and result in high numbers of abnormal blood cells. These blood cells are not fully developed and are called blasts or leukemia cells.Symptoms may include bleeding and bruising, feeling tired, fever, and an increased risk of infections.These symptoms occur due to",
-                    //             style: TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: ScreenUtil().setSp(12),
-                    //               color: Colors.grey,
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -470,10 +412,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
           width: double.infinity,
           child: ElevatedButton(
             style: ButtonStyle(
-                // padding:
-                // MaterialStateProperty.all<EdgeInsetsGeometry>(
-                //     const EdgeInsets.symmetric(
-                //         vertical: 10, horizontal: 9)),
                 backgroundColor:
                 MaterialStateProperty.all<Color>(
                     Colors.red
@@ -492,7 +430,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>const AppointmentPage2()));
             },
-            child: const Text("Book Appointment"),
+            child: const Text("Appointment"),
           ),
         ),
       ),

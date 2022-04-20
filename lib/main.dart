@@ -2,19 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:shahid_mahamum_sir/example/example_test.dart';
+import 'package:shahid_mahamum_sir/example/custom_drop_down_button.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
-import 'package:shahid_mahamum_sir/ui/pages/homepage.dart';
-
-import 'example/expandable_text.dart';
-import 'ui/pages/appointment_page/component/horizontal_date_picker.dart';
+import 'package:shahid_mahamum_sir/ui/pages/home_page/homepage.dart';
 
 void main(){
   runApp(const MyApp());
+  //runApp(const MyAppTextValidation());
   ///runApp(const MyAppWhatsApp());
-  //runApp(MyAppExample());
-  //runApp(TabBarDemo());
-  //runApp(SettingsUI());
 }
 class MyApp extends StatelessWidget{
   const MyApp({Key? key}) : super(key: key);
@@ -33,10 +28,10 @@ class MyApp extends StatelessWidget{
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: (_) =>  MaterialApp(
+        builder: (_) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          builder: (context, widget) {
+          builder: (context, widget){
             ScreenUtil.setContext(context);
             return MediaQuery(
               //Setting font does not change with system font size
@@ -49,10 +44,8 @@ class MyApp extends StatelessWidget{
               fontFamily: 'Roboto'
             //primarySwatch: Colors.blue,
           ),
-          //home: const HomePage(),
           home: const HomePage(),
-          //home: const HorizontalDateView(),
-          //home: const DemoAppReadMoreText(),
+          //home: const CustomDropDownButton(),
         ),
       ),
     );

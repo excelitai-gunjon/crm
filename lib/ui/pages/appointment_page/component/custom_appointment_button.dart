@@ -4,7 +4,7 @@ import 'package:shahid_mahamum_sir/ui/pages/appointment_page/appointment_page2.d
 class CustomAppointmentButton extends StatelessWidget {
   const CustomAppointmentButton({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8),
       child: SizedBox(

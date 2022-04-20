@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shahid_mahamum_sir/model/deals_menu_model_class.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_custom_products_sales_container.dart';
-import 'package:shahid_mahamum_sir/ui/component/home_page_custom_total_deals_container.dart';
-import 'package:shahid_mahamum_sir/ui/pages/entrepreneur_page.dart';
+import 'package:shahid_mahamum_sir/ui/pages/home_page/component/home_page_custom_products_sales_container.dart';
+import 'package:shahid_mahamum_sir/ui/pages/home_page/component/home_page_custom_total_deals_container.dart';
+import 'package:shahid_mahamum_sir/ui/pages/entrepreneur_page/entrepreneur_page.dart';
 import 'package:shahid_mahamum_sir/ui/pages/medical_project.dart';
 
 class CustomDealsTabBarView extends StatelessWidget {
