@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,9 +7,11 @@ import 'package:intl/intl.dart';
 import 'package:shahid_mahamum_sir/example/expandable_text.dart';
 import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/custom_drop_down_button.dart';
 import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/horizontal_date_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../example/custom_drop_down_button.dart';
 import 'component/custom_appointment_button.dart';
+import 'component/custom_drop_down_date_of_birth_widget.dart';
 import 'component/custom_text_form_field.dart';
 
 class AppointmentPage2 extends StatefulWidget {
@@ -17,9 +21,8 @@ class AppointmentPage2 extends StatefulWidget {
 }
 
 class _AppointmentPage2State extends State<AppointmentPage2> {
-
   String dropdownvalue = 'Apple';
-  var items=[
+  var items = [
     'Apple',
     'Banana',
     'Grapes',
@@ -140,19 +143,26 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                     ),
                                   ),
                                   Row(
-                                    //crossAxisAlignment: Cro,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Container(
-                                        height: 40,
-                                        width: 40,
-                                        decoration: const BoxDecoration(
-                                            color: Color(0xff7390EE),
-                                            shape: BoxShape.circle),
-                                        child: const Icon(
-                                          Icons.call,
-                                          color: Colors.white,
+                                      GestureDetector(
+                                        onTap: () {
+                                          openwhatsapp();
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          width: 40,
+                                          decoration: const BoxDecoration(
+                                              color: Color(
+                                                  0xff29AD00), //Color(0xff7390EE),
+                                              shape: BoxShape.circle),
+                                          child: const Icon(
+                                            Icons.whatsapp_outlined,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                       Container(
@@ -162,28 +172,28 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                             color: Color(0xff7390EE),
                                             shape: BoxShape.circle),
                                         child: const Icon(
-                                          Icons.mail,
+                                          Icons.mail_outline,
                                           color: Colors.white,
                                         ),
                                       ),
                                     ],
                                   ),
-                                  GestureDetector(
-                                    onTap: () => _selectDate(context),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          formattedDate.toString(),
-                                          style: TextStyle(
-                                            fontSize: ScreenUtil().setSp(20),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const Icon(
-                                            Icons.keyboard_arrow_down_outlined),
-                                      ],
-                                    ),
-                                  ),
+                                  // GestureDetector(
+                                  //   onTap: () => _selectDate(context),
+                                  //   child: Row(
+                                  //     children: [
+                                  //       Text(
+                                  //         formattedDate.toString(),
+                                  //         style: TextStyle(
+                                  //           fontSize: ScreenUtil().setSp(20),
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //       ),
+                                  //       const Icon(
+                                  //           Icons.keyboard_arrow_down_outlined),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -222,7 +232,9 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                   ),
                   const HorizontalDateView(),
                   const Text("Full Name"),
-                  const CustomTextFormField(),
+                  const CustomTextFormField(
+                    title: "Enter Your Name",
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -231,16 +243,24 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                     height: 20,
                   ),
                   const Text("Email"),
-                  const CustomTextFormField(),
+                  const CustomTextFormField(
+                    title: "Enter Your email",
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
                   const Text("Phone Number"),
-                  const CustomTextFormField(),
+                  const CustomTextFormField(
+                    title: "Enter Your Phone Number",
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-
+                  const Text("date of Birth"),
+                  const CustomDropDownDateOfBirthWidget(),
+                  const SizedBox(
+                    height: 80,
+                  ),
                 ],
               ),
             ),
@@ -251,4 +271,17 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
       ),
     );
   }
+
+  openwhatsapp()async{
+    var whatsapp = "+8801780196100";
+    var whatsappURl_android =
+        "whatsapp://send?phone=" + whatsapp + "&text=hello";
+    var whatappURL_ios = "https://wa.me/$whatsapp?text=${Uri.parse("hello")}";
+    await canLaunch(whatsappURl_android)
+        ? launch(whatsappURl_android)
+        : ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("whatsapp no installed>>>>"))
+    );
+  }
+
 }

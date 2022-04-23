@@ -30,20 +30,18 @@ class CustomTextField extends StatefulWidget {
 }
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
-  void initState() {
+  void initState(){
     super.initState();
-
     widget.controller.addListener(onListen);
   }
   @override
-  void dispose() {
+  void dispose(){
     widget.controller.removeListener(onListen);
-
     super.dispose();
   }
   void onListen() => setState(() {});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Column(
       children: [
         const SizedBox(height: 20,),
@@ -54,61 +52,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
           textInputAction: TextInputAction.next,
           keyboardType: widget.textInputType,
 
-          // onChanged: (value){
-          //     //widget.controller.text==widget.checkMatchPassword;
-          //
-          //   if(widget.textInputType == TextInputType.visiblePassword){
-          //     String password = widget.checkMatchPassword.toString();
-          //     String confirmPassword = value.toString();
-          //     print(password+"    "+confirmPassword);
-          //
-          //     if(password.startsWith(confirmPassword)){
-          //
-          //         _errorText="matched";
-          //
-          //         print(_errorText);
-          //
-          //
-          //     }
-          //     else{
-          //       _errorText="Don't Match";
-          //       print(_errorText);
-          //     }
-          //   }
-
-
-
-          //},
-
-          // validator: (value) {
-          //   if(widget.textInputType==TextInputType.emailAddress){
-          //     if(value!=null && !EmailValidator.validate(value)){
-          //       return 'Enter a Valid Email Address';
-          //     }
-          //     return null;
-          //   }
-          //   if(widget.textInputType==TextInputType.text){
-          //     String name = value.toString();
-          //     if(name.isEmpty){
-          //       return 'Enter Your name';
-          //     }
-          //     return null;
-          //   }
-          //   if(widget.textInputType == TextInputType.visiblePassword){
-          //
-          //     String password = value.toString();
-          //     //print(password+"     "+widget.checkMatchPassword.toString());
-          //     if(password.isEmpty){
-          //       return 'Enter Your password';}
-          //     else if(password!=widget.checkMatchPassword.toString()){
-          //       return "Password Doesn't Match";
-          //     }
-          //     return null;
-          //
-          //
-          //
-          //   }
-          // },
           decoration: InputDecoration(
               contentPadding:
               const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

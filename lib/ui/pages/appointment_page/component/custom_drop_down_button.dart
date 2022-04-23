@@ -1,7 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomDropDownButtonWidget extends StatefulWidget {
+class CustomDropDownButtonWidget extends StatefulWidget{
   const CustomDropDownButtonWidget({Key? key}) : super(key: key);
 
   @override
@@ -16,15 +17,15 @@ class _CustomDropDownButtonWidgetState extends State<CustomDropDownButtonWidget>
     "female",
     "Other",
   ];
-
   @override
   Widget build(BuildContext context){
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const Text("Gender"),
         Container(
           height: 40,
+          width: ScreenUtil().screenWidth*.8,
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),

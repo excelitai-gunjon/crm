@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shahid_mahamum_sir/example/custom_drop_down_button.dart';
+import 'package:shahid_mahamum_sir/example/package_flutter_share_me.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
 import 'package:shahid_mahamum_sir/ui/pages/home_page/homepage.dart';
+
+import 'example/file_picker_example.dart';
 
 void main(){
   runApp(const MyApp());
@@ -41,11 +44,11 @@ class MyApp extends StatelessWidget{
           },
           //theme: ThemeData(fontFamily: 'Raleway'),
           theme: ThemeData(
-              fontFamily: 'Roboto'
+              fontFamily: 'Roboto',
             //primarySwatch: Colors.blue,
           ),
           home: const HomePage(),
-          //home: const CustomDropDownButton(),
+          //home: MyAppFlutterShareMe(),
         ),
       ),
     );
