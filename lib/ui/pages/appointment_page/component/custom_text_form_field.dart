@@ -25,19 +25,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           border: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(25)),
+              borderRadius: BorderRadius.circular(10)),
           errorBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(25)),
+              borderRadius: BorderRadius.circular(10)),
           focusedErrorBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.red),
-              borderRadius: BorderRadius.circular(25)),
+              borderRadius: BorderRadius.circular(10)),
           enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(25)),
+              borderRadius: BorderRadius.circular(10)),
           focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.amber),
-              borderRadius: BorderRadius.circular(25)),
+              borderSide: const BorderSide(color: Color(0xff0984e3)),//Colors.amber),
+              borderRadius: BorderRadius.circular(10)),
           hintText: widget.title,
           // suffixIcon: IconButton(
           //   color: Colors.grey,

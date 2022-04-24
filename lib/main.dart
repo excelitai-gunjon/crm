@@ -7,6 +7,7 @@ import 'package:shahid_mahamum_sir/example/package_flutter_share_me.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
 import 'package:shahid_mahamum_sir/ui/pages/home_page/homepage.dart';
 
+import 'example/custom_scroll_index.dart';
 import 'example/file_picker_example.dart';
 
 void main(){
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget{
             //primarySwatch: Colors.blue,
           ),
           home: const HomePage(),
-          //home: MyAppFlutterShareMe(),
+          //home: const ScrollToIndex(title: 'Scroll To Index Demo',),
         ),
       ),
     );

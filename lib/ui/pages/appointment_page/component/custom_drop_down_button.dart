@@ -2,14 +2,14 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomDropDownButtonWidget extends StatefulWidget{
-  const CustomDropDownButtonWidget({Key? key}) : super(key: key);
+class CustomGenderDropDownButtonWidget extends StatefulWidget{
+  const CustomGenderDropDownButtonWidget({Key? key}) : super(key: key);
 
   @override
-  _CustomDropDownButtonWidgetState createState() => _CustomDropDownButtonWidgetState();
+  _CustomGenderDropDownButtonWidgetState createState() => _CustomGenderDropDownButtonWidgetState();
 }
 
-class _CustomDropDownButtonWidgetState extends State<CustomDropDownButtonWidget> {
+class _CustomGenderDropDownButtonWidgetState extends State<CustomGenderDropDownButtonWidget> {
 
   String dropdownvalue = 'male';
   var items=[
@@ -25,7 +25,7 @@ class _CustomDropDownButtonWidgetState extends State<CustomDropDownButtonWidget>
         const Text("Gender"),
         Container(
           height: 40,
-          width: ScreenUtil().screenWidth*.8,
+          width: ScreenUtil().screenWidth*.5,
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),
@@ -33,13 +33,13 @@ class _CustomDropDownButtonWidgetState extends State<CustomDropDownButtonWidget>
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2(
-              hint: Text(
-                'Select Item',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Theme.of(context).hintColor,
-                ),
-              ),
+              // hint: Text(
+              //   'Select Item',
+              //   style: TextStyle(
+              //     fontSize: 14,
+              //     color: Theme.of(context).hintColor,
+              //   ),
+              // ),
               items: items
                   .map((item) => DropdownMenuItem<String>(
                 value: item,
