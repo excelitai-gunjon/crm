@@ -7,11 +7,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:provider/provider.dart';
 import 'package:shahid_mahamum_sir/example/expandable_text.dart';
 import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/custom_drop_down_button.dart';
 import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/horizontal_date_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../example/custom_drop_down_button.dart';
+import '../../../provider/attached_file_provider.dart';
 import 'component/custom_appointment_button.dart';
 import 'component/custom_drop_down_date_of_birth_widget.dart';
 import 'component/custom_text_form_field.dart';
@@ -24,15 +26,8 @@ class AppointmentPage2 extends StatefulWidget {
 }
 
 class _AppointmentPage2State extends State<AppointmentPage2> {
-  String dropdownvalue = 'Apple';
-  var items = [
-    'Apple',
-    'Banana',
-    'Grapes',
-    'Orange',
-    'watermelon',
-    'Pineapple'
-  ];
+  late PlatformFile files;
+
   DateTime selectedDate = DateTime.now();
   String formattedDate = DateFormat('MMM y').format(DateTime.now());
   Future<void> _selectDate(BuildContext context) async {
@@ -55,8 +50,11 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
   int value1 = 1;
   int value2 = 2;
 
+  bool selected = false;
+
   @override
   Widget build(BuildContext context) {
+    final attachedFile = Provider.of<AttachedFile>(context);
     final size = MediaQuery.of(context).size;
     return Container(
       height: size.height,
@@ -94,8 +92,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                     ),
                     SizedBox(
                       //color: Colors.amber,
-                      height:
-                          ScreenUtil().screenWidth / 2 + 50, //size.width / 2,
+                      height: ScreenUtil().screenWidth / 2, //size.width / 2,
                       width: ScreenUtil().screenWidth,
                       child: Row(
                         children: [
@@ -112,7 +109,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                   Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Container(
-                                      height: ScreenUtil().screenWidth / 2,
+                                      height: ScreenUtil().screenWidth / 2 - 50,
                                       width: ScreenUtil().screenWidth,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
@@ -128,7 +125,17 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                       ),
                                     ),
                                   ),
-                                  Image.asset("image/Doctor.png"),
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: SizedBox(
+                                      height: ScreenUtil().screenHeight,
+                                      width: ScreenUtil().screenWidth,
+                                      child: Image.asset(
+                                        "image/IMG_3745-Background Remove.png",
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -224,25 +231,6 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                       height: 20,
                     ),
                     const HorizontalDateView(),
-                    // Container(
-                    //   height: ScreenUtil().setHeight(70),
-                    //   width: ScreenUtil().screenWidth,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(8),
-                    //     border: Border.all(
-                    //       width: 2,
-                    //       color: Colors.amber
-                    //     )
-                    //   ),
-                    //   child: Column(
-                    //     children: const [
-                    //       Text("Full Name"),
-                    //       CustomTextFormField(
-                    //         title: "Enter Your Name",
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     const Text(
                       "Full Name",
                       style: TextStyle(
@@ -259,7 +247,28 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const CustomGenderDropDownButtonWidget(),
+                    CustomGenderDropDownButtonWidget(
+                      title: "Gender",
+                      dropdownvalue: "Select Gender",
+                      items: const [
+                        "Select Gender",
+                        "male",
+                        "female",
+                        "Other",
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomGenderDropDownButtonWidget(
+                      title: "Appointment Type",
+                      dropdownvalue: "Select Type",
+                      items: const [
+                        "Select Type",
+                        "Off Line",
+                        "On Line",
+                      ],
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -403,7 +412,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                     ),
                     groupValue == 1
                         ? Container(
-                            height: ScreenUtil().screenWidth / 2,
+                            height: ScreenUtil().screenWidth,
                             width: ScreenUtil().screenWidth,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -413,23 +422,132 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                 color: const Color(0xff0984e3),
                               ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: ()async{
-                                    final result=await FilePicker.platform.pickFiles(allowMultiple: true,type: FileType.custom,allowedExtensions: ['pdf','mp4',]);
-                                    if(result==null){
-                                      return;
-                                    }
-                                    //List<File> files = result!.paths.map((path) => File(path!)).toList();
-                                    //final file = result.files.first;
-                                    //OpenFile.open(file.path);
-                                    openFiles(result.files);
-                                  },
-                                  child: const Text("upload form device"),
-                                ),
-                              ],
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Wrap(
+                                    direction: Axis.horizontal,
+                                    children: AttachedFile.files.map((e) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                OpenFile.open(e.path);
+                                              },
+                                              child: Container(
+                                                height:
+                                                    ScreenUtil().setHeight(50),
+                                                width:
+                                                    ScreenUtil().setHeight(50),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                    color: Colors.lightGreen,
+                                                    //shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      width: 1,
+                                                      color:
+                                                          Colors.orangeAccent,
+                                                    )),
+                                                child: Stack(
+                                                  clipBehavior: Clip.none,
+                                                  children: [
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Image.file(
+                                                        File(e.path.toString()),
+                                                        width: 80,
+                                                        height: 80,
+                                                      ),
+                                                      // Text(
+                                                      //   '${e.extension}',
+                                                      //   style: TextStyle(
+                                                      //     fontSize: ScreenUtil()
+                                                      //         .setSp(7),
+                                                      //   ),
+                                                      // ),
+                                                    ),
+                                                    Positioned(
+                                                      top: -10,
+                                                      right: -10,
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          attachedFile
+                                                              .removefile(e);
+                                                        },
+                                                        child: Container(
+                                                          height: 30,
+                                                          width: 30,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  shape: BoxShape
+                                                                      .circle),
+                                                          child: const Icon(Icons
+                                                              .cancel_outlined),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            //Text('${e.name}'+'${e.extension}'),
+                                            SizedBox(
+                                              height:
+                                                  ScreenUtil().setHeight(20),
+                                              width: ScreenUtil().setHeight(50),
+                                              child: Text(
+                                                '${e.name}',
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      ScreenUtil().setSp(7),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                  SizedBox(
+                                    height: ScreenUtil().setHeight(50),
+                                    width: ScreenUtil().setHeight(50),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        //shape: const CircleBorder(),
+                                        primary: Colors.purple,
+                                      ),
+                                      onPressed: () {
+                                        attachedFile.addFile();
+                                      },
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(Icons.add),
+                                          Text(
+                                            "upload file",
+                                            style: TextStyle(
+                                              fontSize: ScreenUtil().setSp(5),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         : Container(),
@@ -474,11 +592,12 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
   }
 
   void openFiles(List<PlatformFile> files) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>FilePage(
-      files: files,
-      //onOpenedFile: openFiles,
-      // file:files,
-      // onOpenFile: openFiles,
-    )));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => FilePage(
+              files: files,
+              //onOpenedFile: openFiles,
+              // file:files,
+              // onOpenFile: openFiles,
+            )));
   }
 }

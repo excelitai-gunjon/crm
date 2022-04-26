@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomGenderDropDownButtonWidget extends StatefulWidget{
-  const CustomGenderDropDownButtonWidget({Key? key}) : super(key: key);
+  CustomGenderDropDownButtonWidget({Key? key,required this.title,required this.dropdownvalue,required this.items}) : super(key: key);
+
+  String title;
+  String dropdownvalue;
+  List<String> items;
 
   @override
   _CustomGenderDropDownButtonWidgetState createState() => _CustomGenderDropDownButtonWidgetState();
@@ -19,28 +23,28 @@ class _CustomGenderDropDownButtonWidgetState extends State<CustomGenderDropDownB
   ];
   @override
   Widget build(BuildContext context){
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        const Text("Gender"),
+        Text(widget.title,style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          //fontSize:
+        ),),
+        const SizedBox(
+          height: 10,
+        ),
         Container(
-          height: 40,
-          width: ScreenUtil().screenWidth*.5,
+          height: 50,
+          width: ScreenUtil().screenWidth,
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 0.80),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2(
-              // hint: Text(
-              //   'Select Item',
-              //   style: TextStyle(
-              //     fontSize: 14,
-              //     color: Theme.of(context).hintColor,
-              //   ),
-              // ),
-              items: items
+              items: widget.items
                   .map((item) => DropdownMenuItem<String>(
                 value: item,
                 child: Text(
@@ -52,10 +56,10 @@ class _CustomGenderDropDownButtonWidgetState extends State<CustomGenderDropDownB
               )
               )
                   .toList(),
-              value: dropdownvalue,
+              value: widget.dropdownvalue,
               onChanged: (String? newValue) {
                 setState(() {
-                  dropdownvalue = newValue!;
+                  widget.dropdownvalue = newValue!;
                 });
               },
               buttonHeight: 40,

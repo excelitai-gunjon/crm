@@ -2,26 +2,60 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomDropDownDateOfBirthWidget extends StatefulWidget{
+class CustomDropDownDateOfBirthWidget extends StatefulWidget {
   const CustomDropDownDateOfBirthWidget({Key? key}) : super(key: key);
   @override
-  _CustomDropDownDateOfBirthWidgetState createState() => _CustomDropDownDateOfBirthWidgetState();
+  _CustomDropDownDateOfBirthWidgetState createState() =>
+      _CustomDropDownDateOfBirthWidgetState();
 }
-class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBirthWidget>{
 
+class _CustomDropDownDateOfBirthWidgetState
+    extends State<CustomDropDownDateOfBirthWidget> {
   String dropdownvalue = 'male';
 
-  var items=[
+  var items = [
     "male",
     "female",
     "Other",
   ];
 
-  int dropdownDate=1;
-  var dateList=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,];
+  String dropdownDate = "Select Date";
+  var dateList = [
+    "Select Date",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "31",
+  ];
 
-  String dropdownMonth="Select Month";
-  var monthList=[
+  String dropdownMonth = "Select Month";
+  var monthList = [
     'Select Month',
     'January',
     'February',
@@ -37,8 +71,8 @@ class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBi
     'December',
   ];
 
-  String dropdownYear="Select Year";
-  var yearList=[
+  String dropdownYear = "Select Year";
+  var yearList = [
     'Select Year',
     '1980',
     '1981',
@@ -70,7 +104,7 @@ class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBi
     '2007',
     '2008',
     '2009',
-    '20010',
+    '2010',
     '2011',
     '2012',
     '2013',
@@ -83,19 +117,19 @@ class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBi
     '2021',
     '2022',
   ];
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          height: 40,
-          width: ScreenUtil().screenWidth*.3,
+          height: 50,
+          width: ScreenUtil().screenWidth * .3,
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 0.80),
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+                color: Colors.grey, style: BorderStyle.solid, width: 0.80),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2(
@@ -108,18 +142,18 @@ class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBi
                 ),
               ),
               items: dateList
-                  .map((item) => DropdownMenuItem<int>(
-                value: item,
-                child: Text(
-                  item.toString(),
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              )
-              ).toList(),
+                  .map((item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(
+                          item.toString(),
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ))
+                  .toList(),
               value: dropdownDate,
-              onChanged: (int? newValue) {
+              onChanged: (String? newValue) {
                 setState(() {
                   dropdownDate = newValue!;
                 });
@@ -131,12 +165,13 @@ class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBi
           ),
         ),
         Container(
-          height: 40,
-          width: ScreenUtil().screenWidth*.3,
+          height: 50,
+          width: ScreenUtil().screenWidth * .3,
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 0.80),
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+                color: Colors.grey, style: BorderStyle.solid, width: 0.80),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2(
@@ -150,18 +185,18 @@ class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBi
               ),
               items: monthList
                   .map((item) => DropdownMenuItem<String>(
-                value: item,
-                child: Text(
-                  item,
-                  style: TextStyle(
-                    fontSize: ScreenUtil().setSp(12),
-                  ),
-                ),
-              )
-              ).toList(),
+                        value: item,
+                        child: Text(
+                          item,
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(12),
+                          ),
+                        ),
+                      ))
+                  .toList(),
               value: dropdownMonth,
-              onChanged: (String? newValue){
-                setState((){
+              onChanged: (String? newValue) {
+                setState(() {
                   dropdownMonth = newValue!;
                 });
               },
@@ -172,12 +207,13 @@ class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBi
           ),
         ),
         Container(
-          height: 40,
-          width: ScreenUtil().screenWidth*.3,
+          height: 50,
+          width: ScreenUtil().screenWidth * .3,
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 0.80),
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+                color: Colors.grey, style: BorderStyle.solid, width: 0.80),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2(
@@ -191,18 +227,18 @@ class _CustomDropDownDateOfBirthWidgetState extends State<CustomDropDownDateOfBi
               ),
               items: yearList
                   .map((item) => DropdownMenuItem<String>(
-                value: item,
-                child: Text(
-                  item,
-                  style: TextStyle(
-                    fontSize: ScreenUtil().setSp(12),
-                  ),
-                ),
-              )
-              ).toList(),
+                        value: item,
+                        child: Text(
+                          item,
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(12),
+                          ),
+                        ),
+                      ))
+                  .toList(),
               value: dropdownYear,
-              onChanged: (String? newValue){
-                setState((){
+              onChanged: (String? newValue) {
+                setState(() {
                   dropdownYear = newValue!;
                 });
               },

@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shahid_mahamum_sir/example/custom_drop_down_button.dart';
 import 'package:shahid_mahamum_sir/example/package_flutter_share_me.dart';
+import 'package:shahid_mahamum_sir/provider/attached_file_provider.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
 import 'package:shahid_mahamum_sir/ui/pages/home_page/homepage.dart';
 
 import 'example/custom_scroll_index.dart';
 import 'example/file_picker_example.dart';
+import 'example/show_file_in_grid_view/pick_file.dart';
 
 void main(){
   runApp(const MyApp());
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget{
         ChangeNotifierProvider.value(value: ProductsSaleTabState()),
         ChangeNotifierProvider.value(value: TotalProjectsTabState()),
         ChangeNotifierProvider.value(value: CustomScafoldKey()),
+        ChangeNotifierProvider.value(value: AttachedFile()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
@@ -49,6 +52,7 @@ class MyApp extends StatelessWidget{
             //primarySwatch: Colors.blue,
           ),
           home: const HomePage(),
+          //home: const pickFile(),
           //home: const ScrollToIndex(title: 'Scroll To Index Demo',),
         ),
       ),
