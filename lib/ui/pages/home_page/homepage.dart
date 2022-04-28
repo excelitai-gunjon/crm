@@ -208,10 +208,7 @@ class _HomePageState extends State<HomePage> {
                             shape: BoxShape.circle,
                             image: const DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage("image/sir.jpeg"),
-                              // NetworkImage(
-                              //   "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                              // )
+                              image: AssetImage("image/IMG_7546.PNG"),
                             )),
                       ),
                       Positioned(
@@ -226,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                                 width: 4,
                                 color: Colors.transparent,//const Color(0xffFFA45A),
                               ),
-                              color: Colors.white,
+                              color: Colors.transparent,
                             ),
                             child: const Icon(
                               Icons.verified,

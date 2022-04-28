@@ -75,7 +75,7 @@ Widget buildFile(PlatformFile file,BuildContext context,int index){
     color: Colors.amber,
     child: InkWell(
       onTap: () {
-        OpenFile.open(file.path);
+        OpenFile.open(file.path.toString());
       },
       child: Container(
         height: 100,

@@ -75,12 +75,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       ),
                     ),
                     Align(
-                      alignment: Alignment.topCenter,
+                      alignment: Alignment.bottomCenter,
                       child: SizedBox(
-                        height: ScreenUtil().screenHeight,
+                        height: ScreenUtil().screenHeight-100,
                         width: ScreenUtil().screenWidth,
                         child: Image.asset(
-                          "image/rsz_2dr.png",fit: BoxFit.contain,),
+                          "image/IMG_3745-Background Remove.png",fit: BoxFit.fill,),
                       ),
                     ),
                   ],

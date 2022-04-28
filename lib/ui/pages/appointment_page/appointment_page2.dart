@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
@@ -18,7 +19,9 @@ import 'component/custom_appointment_button.dart';
 import 'component/custom_drop_down_date_of_birth_widget.dart';
 import 'component/custom_text_form_field.dart';
 import 'component/file_page.dart';
-
+enum Attached{
+  gallery,camera,fileAttached,
+}
 class AppointmentPage2 extends StatefulWidget {
   const AppointmentPage2({Key? key}) : super(key: key);
   @override
@@ -26,7 +29,12 @@ class AppointmentPage2 extends StatefulWidget {
 }
 
 class _AppointmentPage2State extends State<AppointmentPage2> {
+
+
+  final formkey =GlobalKey<FormState>();
+
   late PlatformFile files;
+  Attached? _attached;
 
   DateTime selectedDate = DateTime.now();
   String formattedDate = DateFormat('MMM y').format(DateTime.now());
@@ -77,527 +85,731 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  //mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back),
-                    ),
-                    SizedBox(
-                      //color: Colors.amber,
-                      height: ScreenUtil().screenWidth / 2, //size.width / 2,
-                      width: ScreenUtil().screenWidth,
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 5.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  //color: Colors.green,
-                                  borderRadius: BorderRadius.circular(20)),
-                              height: ScreenUtil().screenHeight,
-                              width: ScreenUtil().screenWidth / 2,
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      height: ScreenUtil().screenWidth / 2 - 50,
-                                      width: ScreenUtil().screenWidth,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        gradient: const LinearGradient(
-                                          colors: [
-                                            Colors.deepPurple,
-                                            Colors.purpleAccent,
-                                          ],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                          //stops: [0, 0],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topCenter,
-                                    child: SizedBox(
-                                      height: ScreenUtil().screenHeight,
-                                      width: ScreenUtil().screenWidth,
-                                      child: Image.asset(
-                                        "image/IMG_3745-Background Remove.png",
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8, right: 8, top: 50),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+            child: Form(
+              key: formkey,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    //mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.arrow_back),
+                      ),
+                      SizedBox(
+                        //color: Colors.amber,
+                        height: ScreenUtil().screenWidth / 2, //size.width / 2,
+                        width: ScreenUtil().screenWidth,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 5.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    //color: Colors.green,
+                                    borderRadius: BorderRadius.circular(20)),
+                                height: ScreenUtil().screenHeight,
+                                width: ScreenUtil().screenWidth / 2,
+                                child: Stack(
                                   children: [
-                                    Text(
-                                      "Dr.Shahid Mahamum",
-                                      style: TextStyle(
-                                        fontSize: ScreenUtil().setSp(25),
-                                        fontWeight: FontWeight.bold,
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                        height: ScreenUtil().screenWidth / 2 - 50,
+                                        width: ScreenUtil().screenWidth,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          gradient: const LinearGradient(
+                                            colors: [
+                                              Colors.deepPurple,
+                                              Colors.purpleAccent,
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            //stops: [0, 0],
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            openWhatsApp();
-                                          },
-                                          child: Container(
-                                            height: 40,
-                                            width: 40,
-                                            decoration: const BoxDecoration(
-                                                color: Color(
-                                                    0xff29AD00), //Color(0xff7390EE),
-                                                shape: BoxShape.circle),
-                                            child: const Icon(
-                                              Icons.whatsapp_outlined,
-                                              color: Colors.white,
-                                            ),
-                                          ),
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: SizedBox(
+                                        height: ScreenUtil().screenHeight,
+                                        width: ScreenUtil().screenWidth,
+                                        child: Image.asset(
+                                          "image/IMG_3745-Background Remove.png",
+                                          fit: BoxFit.fill,
                                         ),
-                                        Container(
-                                          height: 40,
-                                          width: 40,
-                                          decoration: const BoxDecoration(
-                                              color: Color(0xff7390EE),
-                                              shape: BoxShape.circle),
-                                          child: const Icon(
-                                            Icons.mail_outline,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const ExpandableText(
-                      "Leukemia, also spelled leukaemia, is a group of blood cancers that usually begin in the bone marrow and result in high numbers of abnormal blood cells. These blood cells are not fully developed and are called blasts or leukemia cells.Symptoms may include bleeding and bruising, feeling tired, fever, and an increased risk of infections.These symptoms occur due to",
-                      trimLines: 3,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      onTap: () => _selectDate(context),
-                      child: Row(
-                        children: [
-                          Text(
-                            formattedDate.toString(),
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(20),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Icon(Icons.keyboard_arrow_down_outlined),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const HorizontalDateView(),
-                    const Text(
-                      "Full Name",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        //fontSize:
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const CustomTextFormField(
-                      title: "Enter Your Name",
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomGenderDropDownButtonWidget(
-                      title: "Gender",
-                      dropdownvalue: "Select Gender",
-                      items: const [
-                        "Select Gender",
-                        "male",
-                        "female",
-                        "Other",
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomGenderDropDownButtonWidget(
-                      title: "Appointment Type",
-                      dropdownvalue: "Select Type",
-                      items: const [
-                        "Select Type",
-                        "Off Line",
-                        "On Line",
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "Email",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        //fontSize:
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const CustomTextFormField(
-                      title: "Enter Your email",
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "Phone Number",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        //fontSize:
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const CustomTextFormField(
-                      title: "Enter Your Phone Number",
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "date of Birth",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        //fontSize:
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const CustomDropDownDateOfBirthWidget(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "purpose of appointment ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        //fontSize:
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                        maxLines: 7,
-                        cursorColor: Colors.grey,
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            alignLabelWithHint: true,
-                            labelText: '', //widget.title,//widget.labelText,
-                            //errorText: widget.errorText,
-                            labelStyle: const TextStyle(
-                                color: Colors.black87, fontSize: 18),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10)),
-                            errorBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10)),
-                            focusedErrorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(10)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Color(0xff0984e3)), //Colors.amber),
-                                borderRadius: BorderRadius.circular(10)),
-                            hintText: "Write here...",
-                            hintStyle: const TextStyle(
-                                fontSize: 14, color: Color(0xFF909090)))),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          "Previous Medical Report : ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            //fontSize:
-                          ),
-                        ),
-                        Radio<int>(
-                          value: value1,
-                          groupValue: groupValue,
-                          onChanged: (value) {
-                            setState(() {
-                              groupValue = value!;
-                            });
-                          },
-                        ),
-                        const Text(
-                          "Yes",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            //fontSize:
-                          ),
-                        ),
-                        Radio<int>(
-                          value: value2,
-                          groupValue: groupValue,
-                          onChanged: (value) {
-                            setState(() {
-                              groupValue = value!;
-                            });
-                          },
-                        ),
-                        const Text(
-                          "No",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            //fontSize:
-                          ),
-                        ),
-                      ],
-                    ),
-                    groupValue == 1
-                        ? Container(
-                            height: ScreenUtil().screenWidth,
-                            width: ScreenUtil().screenWidth,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                width: 1,
-                                color: const Color(0xff0984e3),
-                              ),
-                            ),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Wrap(
-                                    direction: Axis.horizontal,
-                                    children: AttachedFile.files.map((e) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0, vertical: 8.0),
-                                        child: Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                OpenFile.open(e.path);
-                                              },
-                                              child: Container(
-                                                height:
-                                                    ScreenUtil().setHeight(50),
-                                                width:
-                                                    ScreenUtil().setHeight(50),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15),
-                                                    color: Colors.lightGreen,
-                                                    //shape: BoxShape.circle,
-                                                    border: Border.all(
-                                                      width: 1,
-                                                      color:
-                                                          Colors.orangeAccent,
-                                                    )),
-                                                child: Stack(
-                                                  clipBehavior: Clip.none,
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Image.file(
-                                                        File(e.path.toString()),
-                                                        width: 80,
-                                                        height: 80,
-                                                      ),
-                                                      // Text(
-                                                      //   '${e.extension}',
-                                                      //   style: TextStyle(
-                                                      //     fontSize: ScreenUtil()
-                                                      //         .setSp(7),
-                                                      //   ),
-                                                      // ),
-                                                    ),
-                                                    Positioned(
-                                                      top: -10,
-                                                      right: -10,
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          attachedFile
-                                                              .removefile(e);
-                                                        },
-                                                        child: Container(
-                                                          height: 30,
-                                                          width: 30,
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                                  color: Colors
-                                                                      .transparent,
-                                                                  shape: BoxShape
-                                                                      .circle),
-                                                          child: const Icon(Icons
-                                                              .cancel_outlined),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            //Text('${e.name}'+'${e.extension}'),
-                                            SizedBox(
-                                              height:
-                                                  ScreenUtil().setHeight(20),
-                                              width: ScreenUtil().setHeight(50),
-                                              child: Text(
-                                                '${e.name}',
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      ScreenUtil().setSp(7),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8, right: 8, top: 50),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        "Dr.Shahid Mahamum",
+                                        style: TextStyle(
+                                          fontSize: ScreenUtil().setSp(25),
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                  SizedBox(
-                                    height: ScreenUtil().setHeight(50),
-                                    width: ScreenUtil().setHeight(50),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        //shape: const CircleBorder(),
-                                        primary: Colors.purple,
                                       ),
-                                      onPressed: () {
-                                        attachedFile.addFile();
-                                      },
-                                      child: Column(
+                                      Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          const Icon(Icons.add),
-                                          Text(
-                                            "upload file",
-                                            style: TextStyle(
-                                              fontSize: ScreenUtil().setSp(5),
+                                          GestureDetector(
+                                            onTap: () {
+                                              openWhatsApp();
+                                            },
+                                            child: Container(
+                                              height: 40,
+                                              width: 40,
+                                              decoration: const BoxDecoration(
+                                                  color: Color(
+                                                      0xff29AD00), //Color(0xff7390EE),
+                                                  shape: BoxShape.circle),
+                                              child: const Icon(
+                                                Icons.whatsapp_outlined,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 40,
+                                            width: 40,
+                                            decoration: const BoxDecoration(
+                                                color: Color(0xff7390EE),
+                                                shape: BoxShape.circle),
+                                            child: const Icon(
+                                              Icons.mail_outline,
+                                              color: Colors.white,
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          )
-                        : Container(),
-                    const SizedBox(
-                      height: 80,
-                    ),
-                    //purpose of appointment
-                  ],
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const ExpandableText(
+                        "Leukemia, also spelled leukaemia, is a group of blood cancers that usually begin in the bone marrow and result in high numbers of abnormal blood cells. These blood cells are not fully developed and are called blasts or leukemia cells.Symptoms may include bleeding and bruising, feeling tired, fever, and an increased risk of infections.These symptoms occur due to",
+                        trimLines: 3,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () => _selectDate(context),
+                        child: Row(
+                          children: [
+                            Text(
+                              formattedDate.toString(),
+                              style: TextStyle(
+                                fontSize: ScreenUtil().setSp(20),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const Icon(Icons.keyboard_arrow_down_outlined),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const HorizontalDateView(),
+                      const Text(
+                        "Full Name",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          //fontSize:
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CustomTextFormField(
+                        title: "Enter Your Name",
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomGenderDropDownButtonWidget(
+                        title: "Gender",
+                        dropdownvalue: "Select Gender",
+                        items: const [
+                          "Select Gender",
+                          "male",
+                          "female",
+                          "Other",
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomGenderDropDownButtonWidget(
+                        title: "Appointment Type",
+                        dropdownvalue: "Select Type",
+                        items: const [
+                          "Select Type",
+                          "Off Line",
+                          "On Line",
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Email",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          //fontSize:
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CustomTextFormField(
+                        title: "Enter Your email",
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Phone Number",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          //fontSize:
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CustomTextFormField(
+                        title: "Enter Your Phone Number",
+                      ),
+                      // TextFormField(
+                      //   decoration: const InputDecoration(
+                      //     labelText: "Enter your phone number",
+                      //   ),
+                      //   validator: (value){
+                      //     if(value!.isNotEmpty||!RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$').hasMatch(value!)){
+                      //       return "Enter correct phone number";
+                      //     }else{
+                      //       return null;
+                      //     }
+                      //   },
+                      // ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "date of Birth",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          //fontSize:
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const CustomDropDownDateOfBirthWidget(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "purpose of appointment ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          //fontSize:
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                          maxLines: 7,
+                          cursorColor: Colors.grey,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              alignLabelWithHint: true,
+                              labelText: '', //widget.title,//widget.labelText,
+                              //errorText: widget.errorText,
+                              labelStyle: const TextStyle(
+                                  color: Colors.black87, fontSize: 18),
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(10)),
+                              errorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(10)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.red),
+                                  borderRadius: BorderRadius.circular(10)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(10)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xff0984e3)), //Colors.amber),
+                                  borderRadius: BorderRadius.circular(10)),
+                              hintText: "Write here...",
+                              hintStyle: const TextStyle(
+                                  fontSize: 14, color: Color(0xFF909090)))),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "Previous Medical Report : ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              //fontSize:
+                            ),
+                          ),
+                          Radio<int>(
+                            value: value1,
+                            groupValue: groupValue,
+                            onChanged: (value) {
+                              setState(() {
+                                groupValue = value!;
+                              });
+                            },
+                          ),
+                          const Text(
+                            "Yes",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              //fontSize:
+                            ),
+                          ),
+                          Radio<int>(
+                            value: value2,
+                            groupValue: groupValue,
+                            onChanged: (value) {
+                              setState(() {
+                                groupValue = value!;
+                              });
+                            },
+                          ),
+                          const Text(
+                            "No",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              //fontSize:
+                            ),
+                          ),
+                        ],
+                      ),
+                      groupValue == 1
+                          ? Container(
+                              height: ScreenUtil().screenWidth/2+50,
+                              width: ScreenUtil().screenWidth,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  width: 1,
+                                  color: const Color(0xff0984e3),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Scaffold(
+                                  body:buildWrap(attachedFile),
+                                  floatingActionButton: SpeedDial(
+                                    backgroundColor: Colors.deepPurple,
+                                    animatedIcon: AnimatedIcons.add_event,
+                                    onOpen: (){
+                                      setState(() {
+                                      });
+                                    },
+                                    children: [
+                                      SpeedDialChild(
+                                        backgroundColor: const Color(0xffAE91D5),
+                                        child: const Icon(Icons.photo),
+                                        label: "Gallery",
+                                        onTap: (){
+                                          _attached=Attached.gallery;
+                                          attachedFile.pickImageFromGallery();
+                                        },
+                                      ),
+                                      SpeedDialChild(
+                                        backgroundColor: const Color(0xffAE91D5),
+                                          child: const Icon(Icons.camera_alt),
+                                          label: "Camera",
+                                        onTap: (){
+                                          _attached=Attached.camera;
+                                          attachedFile.pickImageFromCamera();
+                                        },
+                                      ),
+                                      SpeedDialChild(
+                                          backgroundColor: const Color(0xffAE91D5),
+                                          child: const Icon(Icons.attachment_outlined),
+                                          label: "Attached File",
+                                        onTap: (){
+                                          _attached=Attached.fileAttached;
+                                          attachedFile.addAttachedFile();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      const SizedBox(
+                        height: 80,
+                      ),
+                      //purpose of appointment
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: const CustomAppointmentButton(),
+        floatingActionButton: CustomAppointmentButton(formKey: formkey,),
       ),
     );
   }
 
-  openWhatsApp() async {
+  Widget buildWrap(AttachedFile attachedFile){
+    if(_attached==Attached.gallery){
+      return Wrap(
+        direction: Axis.horizontal,
+        children: AttachedFile.galleryList.map((e) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 8.0),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    OpenFile.open(e.path);
+                  },
+                  child: Container(
+                    height:
+                    ScreenUtil().setHeight(50),
+                    width:
+                    ScreenUtil().setHeight(50),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.circular(
+                            15),
+                        color: Colors.lightGreen,
+                        //shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 1,
+                          color:
+                          Colors.orangeAccent,
+                        )),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Align(
+                          alignment:
+                          Alignment.center,
+                          child: Image.file(
+                            File(e.path.toString()),
+                            width: 80,
+                            height: 80,
+                          ),
+                        ),
+                        Positioned(
+                          top: -10,
+                          right: -10,
+                          child: GestureDetector(
+                            onTap: () {
+                              attachedFile.removeGalleryFile(e);
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration:
+                              const BoxDecoration(
+                                  color: Colors
+                                      .transparent,
+                                  shape: BoxShape
+                                      .circle),
+                              child: const Icon(Icons
+                                  .cancel_outlined),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                //Text('${e.name}'+'${e.extension}'),
+                SizedBox(
+                  height:
+                  ScreenUtil().setHeight(20),
+                  width: ScreenUtil().setHeight(50),
+                  child: Text(
+                    '${e.absolute}',
+                    style: TextStyle(
+                      fontSize:
+                      ScreenUtil().setSp(7),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      );
+    }
+    if(_attached==Attached.fileAttached){
+      return Wrap(
+        direction: Axis.horizontal,
+        children: AttachedFile.attachedfiles.map((e) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 8.0),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    OpenFile.open(e.path.toString());
+                  },
+                  child: Container(
+                    height:
+                    ScreenUtil().setHeight(50),
+                    width:
+                    ScreenUtil().setHeight(50),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.circular(
+                            15),
+                        color: Colors.lightGreen,
+                        //shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 1,
+                          color:
+                          Colors.orangeAccent,
+                        )),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Align(
+                          alignment:
+                          Alignment.center,
+                          child: Image.file(
+                            File(e.path.toString()),
+                            width: 80,
+                            height: 80,
+                          ),
+                          // Text(
+                          //   '${e.extension}',
+                          //   style: TextStyle(
+                          //     fontSize: ScreenUtil()
+                          //         .setSp(7),
+                          //   ),
+                          // ),
+                        ),
+                        Positioned(
+                          top: -10,
+                          right: -10,
+                          child: GestureDetector(
+                            onTap: () {
+                              attachedFile
+                                  .removeAttachedFile(e);
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration:
+                              const BoxDecoration(
+                                  color: Colors
+                                      .transparent,
+                                  shape: BoxShape
+                                      .circle),
+                              child: const Icon(Icons
+                                  .cancel_outlined),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                //Text('${e.name}'+'${e.extension}'),
+                SizedBox(
+                  height:
+                  ScreenUtil().setHeight(20),
+                  width: ScreenUtil().setHeight(50),
+                  child: Text(
+                    '${e.name}',
+                    style: TextStyle(
+                      fontSize:
+                      ScreenUtil().setSp(7),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      );
+    }
+    return Wrap(
+      direction: Axis.horizontal,
+      children: AttachedFile.galleryList.map((e) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 8.0, vertical: 8.0),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  OpenFile.open(e.path);
+                },
+                child: Container(
+                  height:
+                  ScreenUtil().setHeight(50),
+                  width:
+                  ScreenUtil().setHeight(50),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.circular(
+                          15),
+                      color: Colors.lightGreen,
+                      //shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 1,
+                        color:
+                        Colors.orangeAccent,
+                      )),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Align(
+                        alignment:
+                        Alignment.center,
+                        child: Image.file(
+                          File(e.path.toString()),
+                          width: 80,
+                          height: 80,
+                        ),
+                        // Text(
+                        //   '${e.extension}',
+                        //   style: TextStyle(
+                        //     fontSize: ScreenUtil()
+                        //         .setSp(7),
+                        //   ),
+                        // ),
+                      ),
+                      Positioned(
+                        top: -10,
+                        right: -10,
+                        child: GestureDetector(
+                          onTap: () {
+                            attachedFile.removeGalleryFile(e);
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration:
+                            const BoxDecoration(
+                                color: Colors
+                                    .transparent,
+                                shape: BoxShape
+                                    .circle),
+                            child: const Icon(Icons
+                                .cancel_outlined),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              //Text('${e.name}'+'${e.extension}'),
+              SizedBox(
+                height:
+                ScreenUtil().setHeight(20),
+                width: ScreenUtil().setHeight(50),
+                child: Text(
+                  '${e.absolute}',
+                  style: TextStyle(
+                    fontSize:
+                    ScreenUtil().setSp(7),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  openWhatsApp()async{
     var whatsapp = "+8801611815656";
     var whatsappURl_android =
         "whatsapp://send?phone=" + whatsapp + "&text= Good Morning Sir";
     var whatappURL_ios = "https://wa.me/$whatsapp?text=${Uri.parse("hello")}";
-    if (Platform.isIOS) {
+    if (Platform.isIOS){
       // for iOS phone only
-      if (await canLaunch(whatappURL_ios)) {
+      if (await canLaunch(whatappURL_ios)){
         await launch(whatappURL_ios, forceSafariVC: false);
-      } else {
+      }else{
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("whatsapp no installed")));
       }
-    } else {
+    }else{
       // android , web
-      if (await canLaunch(whatsappURl_android)) {
+      if (await canLaunch(whatsappURl_android)){
         await launch(whatsappURl_android);
-      } else {
+      } else{
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("whatsapp no installed")));
       }
     }
   }
 
-  void openFiles(List<PlatformFile> files) {
+  void openFiles(List<PlatformFile> files){
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => FilePage(
               files: files,
               //onOpenedFile: openFiles,
               // file:files,
               // onOpenFile: openFiles,
-            )));
+            )
+    )
+    );
   }
 }

@@ -26,7 +26,7 @@ class _pickFileState extends State<pickFile> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: (){
-              attachedFile.addFile();
+              attachedFile.addAttachedFile();
               // final result = await FilePicker.platform
               //     .pickFiles(withReadStream: true, allowMultiple: true);
               //
@@ -46,14 +46,14 @@ class _pickFileState extends State<pickFile> {
         height: ScreenUtil().screenHeight,
         child: Wrap(
           direction: Axis.horizontal,
-          children: AttachedFile.files.map((e){
+          children: AttachedFile.attachedfiles.map((e){
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8.0),
               child: Column(
                 children: [
                   GestureDetector(
                     onTap: (){
-                      OpenFile.open(e.path);
+                      OpenFile.open(e.path.toString());
                     },
                     child: Container(
                       height: 70,
@@ -73,7 +73,7 @@ class _pickFileState extends State<pickFile> {
                             right: -15,
                             child: GestureDetector(
                               onTap: (){
-                                attachedFile.removefile(e);
+                                attachedFile.removeAttachedFile(e);
                               },
                               child: Container(
                                 height: 30,
