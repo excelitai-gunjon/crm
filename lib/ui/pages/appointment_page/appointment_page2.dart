@@ -35,7 +35,7 @@ class AppointmentPage2 extends StatefulWidget {
   _AppointmentPage2State createState() => _AppointmentPage2State();
 }
 
-class _AppointmentPage2State extends State<AppointmentPage2> {
+class _AppointmentPage2State extends State<AppointmentPage2>{
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
