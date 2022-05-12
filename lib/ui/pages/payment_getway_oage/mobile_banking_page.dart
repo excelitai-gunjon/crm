@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shahid_mahamum_sir/model/mobile_banking_model.dart';
-
+import 'package:shahid_mahamum_sir/service/bKash_payment_get_way/pages/bkash_payment.dart';
+import 'package:shahid_mahamum_sir/service/bKash_payment_get_way/pages/home_page.dart';
+enum Intent { sale, authorization }
 class CustomMobileBankingListView extends StatelessWidget {
   const CustomMobileBankingListView({Key? key}) : super(key: key);
 
@@ -77,12 +79,15 @@ class CustomMobileBankingListView extends StatelessWidget {
             child: Center(
               child: TextButton(
                 onPressed: (){
-                  Navigator.pop(context);
+                  if(MobileBanking.mobileBankingList[1].checked==true){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BkashPayment(amount: "500", intent: "authorization")));
+                  }
+                  //Navigator.pop(context);
                 },
                 child: const Text("OK"),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

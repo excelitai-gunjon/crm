@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'mobile_banking_page.dart';
+
 
 class PayNowPage extends StatefulWidget {
   const PayNowPage({Key? key}) : super(key: key);

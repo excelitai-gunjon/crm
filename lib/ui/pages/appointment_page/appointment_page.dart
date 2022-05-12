@@ -25,9 +25,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
+        firstDate: DateTime(2015,8),
+        lastDate: DateTime(2101)
+    );
+    if (picked != null && picked != selectedDate){
       setState(() {
         selectedDate = picked;
         formattedDate = DateFormat('MMM y').format(selectedDate);
@@ -35,8 +36,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
       });
     }
   }
-
-
   @override
   Widget build(BuildContext context){
     return Scaffold(

@@ -35,7 +35,10 @@ class _CustomAppointmentButtonState extends State<CustomAppointmentButton> {
                       borderRadius: BorderRadius.circular(30),
                       side: const BorderSide(
                         color: Color(0xff5B74DF),
-                      )))),
+                      )
+                  )
+              )
+          ),
           onPressed: () {
             if(widget.formKey.currentState!.validate()){
               showDialog(

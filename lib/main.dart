@@ -9,14 +9,8 @@ import 'package:shahid_mahamum_sir/provider/attached_file_provider.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
 import 'package:shahid_mahamum_sir/ui/pages/home_page/homepage.dart';
 
-import 'example/custom_scroll_index.dart';
-import 'example/file_picker_example.dart';
-import 'example/show_file_in_grid_view/pick_file.dart';
-import 'example/ssl_commerce.dart';
-
 void main(){
   runApp(const MyApp());
-  //runApp(const MyAppTextValidation());
   ///runApp(const MyAppWhatsApp());
 }
 class MyApp extends StatelessWidget{
@@ -25,7 +19,7 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return MultiProvider(
-      providers: [
+      providers:[
         ChangeNotifierProvider.value(value: TotalDealsTabState()),
         ChangeNotifierProvider.value(value: HomePageTabState()),
         ChangeNotifierProvider.value(value: ProductsSaleTabState()),

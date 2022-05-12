@@ -36,7 +36,7 @@ class CustomTopDealsContainer extends StatelessWidget {
                     children: [
                       const Expanded(
                         child: Text(
-                          "Total Deals",
+                          "Total Appointment",
                           style: TextStyle(
                             fontWeight:
                             FontWeight.bold,

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:file_picker/src/platform_file.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
@@ -54,14 +53,6 @@ Widget buildShow({
       );
     }).toList(),
   );
-  //   ListView.builder(
-  //   scrollDirection: Axis.vertical,
-  //   itemCount: files.length,
-  //   itemBuilder: (context, index) {
-  //     final file = files[index];
-  //     return buildFile(file,context,index);
-  //   },
-  // );
 }
 
 

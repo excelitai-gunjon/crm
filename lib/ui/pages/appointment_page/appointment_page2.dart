@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -15,13 +16,19 @@ import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/horizonta
 import 'package:url_launcher/url_launcher.dart';
 import '../../../example/custom_drop_down_button.dart';
 import '../../../provider/attached_file_provider.dart';
+import '../payment_getway_oage/pay_later_page.dart';
+import '../payment_getway_oage/payment_page1.dart';
 import 'component/custom_appointment_button.dart';
 import 'component/custom_drop_down_date_of_birth_widget.dart';
 import 'component/custom_text_form_field.dart';
 import 'component/file_page.dart';
-enum Attached{
-  gallery,camera,fileAttached,
+
+enum Attached {
+  gallery,
+  camera,
+  fileAttached,
 }
+
 class AppointmentPage2 extends StatefulWidget {
   const AppointmentPage2({Key? key}) : super(key: key);
   @override
@@ -29,15 +36,24 @@ class AppointmentPage2 extends StatefulWidget {
 }
 
 class _AppointmentPage2State extends State<AppointmentPage2> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController purposeOfAppointmentController = TextEditingController();
+  // TextEditingController nameController=TextEditingController();
+  // TextEditingController nameController=TextEditingController();
+  bool nameError = false;
+  bool emailError = false;
+  bool phoneNumberError = false;
+  bool purposeOfAppointmentError = false;
+  //bool nameError=false;
 
-
-  final formkey =GlobalKey<FormState>();
-
+  final formkey = GlobalKey<FormState>();
   late PlatformFile files;
   Attached? _attached;
-
   DateTime selectedDate = DateTime.now();
   String formattedDate = DateFormat('MMM y').format(DateTime.now());
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -57,7 +73,6 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
   int groupValue = 0;
   int value1 = 1;
   int value2 = 2;
-
   bool selected = false;
 
   @override
@@ -119,10 +134,12 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                     Align(
                                       alignment: Alignment.bottomCenter,
                                       child: Container(
-                                        height: ScreenUtil().screenWidth / 2 - 50,
+                                        height:
+                                            ScreenUtil().screenWidth / 2 - 50,
                                         width: ScreenUtil().screenWidth,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           gradient: const LinearGradient(
                                             colors: [
                                               Colors.deepPurple,
@@ -157,7 +174,8 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                   padding: const EdgeInsets.only(
                                       left: 8, right: 8, top: 50),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -175,7 +193,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           GestureDetector(
-                                            onTap: () {
+                                            onTap: (){
                                               openWhatsApp();
                                             },
                                             child: Container(
@@ -223,7 +241,9 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                         height: 20,
                       ),
                       GestureDetector(
-                        onTap: () => _selectDate(context),
+                        onTap: () {
+                          //_selectDate(context);
+                        },
                         child: Row(
                           children: [
                             Text(
@@ -251,12 +271,60 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const CustomTextFormField(
-                        title: "Enter Your Name",
+                      // const CustomTextFormField(
+                      //   title: "Enter Your Name",
+                      // ),
+                      TextFormField(
+                        controller: nameController,
+                        cursorColor: Colors.grey,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            alignLabelWithHint: true,
+                            labelText: '', //widget.title,//widget.labelText,
+                            //errorText: widget.errorText,
+                            labelStyle: const TextStyle(
+                                color: Colors.black87, fontSize: 18),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            errorText: nameError?"enter your name":'',
+                            errorBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: nameError?Colors.red:Colors.grey),
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color(0xff0984e3)), //Colors.amber),
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Enter Your Name",
+                            hintStyle: const TextStyle(
+                                fontSize: 14, color: Color(0xFF909090))),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      // nameError
+                      //     ? Text(
+                      //         "Enter Your Name",
+                      //         style: TextStyle(
+                      //           color: Colors.red
+                      //         ),
+                      //       )
+                      //     : Container(),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
                       CustomGenderDropDownButtonWidget(
                         title: "Gender",
                         dropdownvalue: "Select Gender",
@@ -292,8 +360,47 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const CustomTextFormField(
-                        title: "Enter Your email",
+                      // const CustomTextFormField(
+                      //   title: "Enter Your email",
+                      // ),
+                      TextFormField(
+                        controller: emailController,
+                        cursorColor: Colors.grey,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            alignLabelWithHint: true,
+                            labelText: '', //widget.title,//widget.labelText,
+                            //errorText: widget.errorText,
+                            labelStyle: const TextStyle(
+                                color: Colors.black87, fontSize: 18),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            errorText: emailError?"Enter Your Email":"",
+                            errorBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: emailError?Colors.red:Colors.grey),
+                                borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(10)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color(0xff0984e3)), //Colors.amber),
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Enter Your Email",
+                            hintStyle: const TextStyle(
+                                fontSize: 14, color: Color(0xFF909090))),
                       ),
                       const SizedBox(
                         height: 20,
@@ -308,21 +415,44 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const CustomTextFormField(
-                        title: "Enter Your Phone Number",
+                      TextFormField(
+                        controller: phoneNumberController,
+                        cursorColor: Colors.grey,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            alignLabelWithHint: true,
+                            labelText: '', //widget.title,//widget.labelText,
+                            //errorText: widget.errorText,
+                            labelStyle: const TextStyle(
+                                color: Colors.black87, fontSize: 18),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            errorText: phoneNumberError?"Enter Your Phone Number":"",
+                            errorBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: phoneNumberError?Colors.red:Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(10)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color(0xff0984e3)), //Colors.amber),
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Enter Your Phone Number",
+                            hintStyle: const TextStyle(
+                                fontSize: 14, color: Color(0xFF909090))),
                       ),
-                      // TextFormField(
-                      //   decoration: const InputDecoration(
-                      //     labelText: "Enter your phone number",
-                      //   ),
-                      //   validator: (value){
-                      //     if(value!.isNotEmpty||!RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$').hasMatch(value!)){
-                      //       return "Enter correct phone number";
-                      //     }else{
-                      //       return null;
-                      //     }
-                      //   },
-                      // ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -351,6 +481,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                         height: 10,
                       ),
                       TextFormField(
+                        controller: purposeOfAppointmentController,
                           maxLines: 7,
                           cursorColor: Colors.grey,
                           textInputAction: TextInputAction.next,
@@ -363,17 +494,20 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                               //errorText: widget.errorText,
                               labelStyle: const TextStyle(
                                   color: Colors.black87, fontSize: 18),
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                               border: OutlineInputBorder(
                                   borderSide:
                                       const BorderSide(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(10)),
+                              errorText: phoneNumberError?"Please enter purpose of appointment":"",
                               errorBorder: OutlineInputBorder(
                                   borderSide:
-                                      const BorderSide(color: Colors.grey),
+                                      BorderSide(color: phoneNumberError?Colors.red:Colors.grey),
                                   borderRadius: BorderRadius.circular(10)),
                               focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.red),
+                                  borderSide:
+                                      const BorderSide(color: Colors.red),
                                   borderRadius: BorderRadius.circular(10)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide:
@@ -381,11 +515,13 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                   borderRadius: BorderRadius.circular(10)),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      color: Color(0xff0984e3)), //Colors.amber),
+                                      color:
+                                          Color(0xff0984e3)), //Colors.amber),
                                   borderRadius: BorderRadius.circular(10)),
                               hintText: "Write here...",
                               hintStyle: const TextStyle(
-                                  fontSize: 14, color: Color(0xFF909090)))),
+                                  fontSize: 14, color: Color(0xFF909090)))
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -434,7 +570,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                       ),
                       groupValue == 1
                           ? Container(
-                              height: ScreenUtil().screenWidth/2+50,
+                              height: ScreenUtil().screenWidth / 2 + 50,
                               width: ScreenUtil().screenWidth,
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -447,39 +583,42 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Scaffold(
-                                  body:buildWrap(attachedFile),
+                                  body: buildWrap(attachedFile),
                                   floatingActionButton: SpeedDial(
                                     backgroundColor: Colors.deepPurple,
                                     animatedIcon: AnimatedIcons.add_event,
-                                    onOpen: (){
-                                      setState(() {
-                                      });
+                                    onOpen: () {
+                                      setState(() {});
                                     },
                                     children: [
                                       SpeedDialChild(
-                                        backgroundColor: const Color(0xffAE91D5),
+                                        backgroundColor:
+                                            const Color(0xffAE91D5),
                                         child: const Icon(Icons.photo),
                                         label: "Gallery",
-                                        onTap: (){
-                                          _attached=Attached.gallery;
+                                        onTap: () {
+                                          _attached = Attached.gallery;
                                           attachedFile.pickImageFromGallery();
                                         },
                                       ),
                                       SpeedDialChild(
-                                        backgroundColor: const Color(0xffAE91D5),
-                                          child: const Icon(Icons.camera_alt),
-                                          label: "Camera",
-                                        onTap: (){
-                                          _attached=Attached.camera;
+                                        backgroundColor:
+                                            const Color(0xffAE91D5),
+                                        child: const Icon(Icons.camera_alt),
+                                        label: "Camera",
+                                        onTap: () {
+                                          _attached = Attached.camera;
                                           attachedFile.pickImageFromCamera();
                                         },
                                       ),
                                       SpeedDialChild(
-                                          backgroundColor: const Color(0xffAE91D5),
-                                          child: const Icon(Icons.attachment_outlined),
-                                          label: "Attached File",
-                                        onTap: (){
-                                          _attached=Attached.fileAttached;
+                                        backgroundColor:
+                                            const Color(0xffAE91D5),
+                                        child: const Icon(
+                                            Icons.attachment_outlined),
+                                        label: "Attached File",
+                                        onTap: () {
+                                          _attached = Attached.fileAttached;
                                           attachedFile.addAttachedFile();
                                         },
                                       ),
@@ -501,19 +640,211 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: CustomAppointmentButton(formKey: formkey,),
+        floatingActionButton: buildCustomAppointmentButton(
+          context,
+          formkey,
+        ),
       ),
     );
   }
 
-  Widget buildWrap(AttachedFile attachedFile){
-    if(_attached==Attached.gallery){
+  Widget buildCustomAppointmentButton(
+      BuildContext context, GlobalKey<FormState> formKey) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+      child: SizedBox(
+        height: 50,
+        width: double.infinity,
+        child: ElevatedButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(const Color(0xff5B74DF)),
+              //fixedSize: MaterialStateProperty.all<Size>(Size.infinite),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        color: Color(0xff5B74DF),
+                      )))),
+          onPressed: () {
+            if (nameController.text.isNotEmpty &&
+                emailController.text.isNotEmpty &&
+                phoneNumberController.text.isNotEmpty) {
+              if (formKey.currentState!.validate()) {
+                setState((){
+                  nameError = false;
+                  emailError=false;
+                  phoneNumberError=false;
+                });
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Scaffold(
+                      backgroundColor: Colors.transparent,
+                      body: Center(
+                        child: Container(
+                          height: ScreenUtil().setHeight(300),
+                          width: ScreenUtil().setWidth(300),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.cancel,
+                                    color: Color(0xffAE91D5),
+                                    size: 30,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return const PayLaterPage();
+                                            });
+                                      },
+                                      child: Container(
+                                        height: ScreenUtil().setHeight(100),
+                                        width: ScreenUtil().setWidth(100),
+                                        decoration: BoxDecoration(
+                                            color: const Color(
+                                                0xffAE91D5), //Color(0xffE7EDFD),
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        child: Center(
+                                          child: RichText(
+                                            text: TextSpan(
+                                                text: 'Pay',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                        ScreenUtil().setSp(25),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                      text: 'Later',
+                                                      style: const TextStyle(
+                                                          color: Colors.indigo,
+                                                          fontSize: 18),
+                                                      recognizer:
+                                                          TapGestureRecognizer()
+                                                            ..onTap = () {
+                                                              // navigate to desired screen
+                                                            })
+                                                ]),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // Color(0xffAE91D5),
+                                    // Color(0xffE7EDFD),
+                                    GestureDetector(
+                                      onTap: () {
+                                        //Navigator.pop(context);
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return const PayNowPage();
+                                            });
+                                        //Navigator.push(context, MaterialPageRoute(builder: (context)=>const PaymentPage()));
+                                      },
+                                      child: Container(
+                                        height: ScreenUtil().setHeight(100),
+                                        width: ScreenUtil().setWidth(100),
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xffAE91D5),
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        child: Center(
+                                          child: RichText(
+                                            text: TextSpan(
+                                                text: 'Pay',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                        ScreenUtil().setSp(25),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                      text: 'Now',
+                                                      style: const TextStyle(
+                                                          color: Colors.indigo,
+                                                          fontSize: 18),
+                                                      recognizer:
+                                                          TapGestureRecognizer()
+                                                            ..onTap = () {
+                                                              // navigate to desired screen
+                                                            })
+                                                ]),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }
+            } else {
+              if (nameController.text.isEmpty) {
+                setState(() {
+                  nameError = true;
+                });
+              }
+              if (emailController.text.isEmpty) {
+                setState(() {
+                  emailError = true;
+                });
+              }
+              if (phoneNumberController.text.isEmpty) {
+                setState(() {
+                  phoneNumberError = true;
+                });
+              }
+              if (purposeOfAppointmentController.text.isEmpty) {
+                setState(() {
+                  purposeOfAppointmentError = true;
+                });
+              }
+            }
+            //avigator.push(context, MaterialPageRoute(builder: (context)=>const AppointmentPage2()));;
+          },
+          child: const Text("Book Appointment"),
+        ),
+      ),
+    );
+  }
+
+  Widget buildWrap(AttachedFile attachedFile) {
+    if (_attached == Attached.gallery) {
       return Wrap(
         direction: Axis.horizontal,
         children: AttachedFile.galleryList.map((e) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 8.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
             child: Column(
               children: [
                 GestureDetector(
@@ -521,27 +852,21 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                     OpenFile.open(e.path);
                   },
                   child: Container(
-                    height:
-                    ScreenUtil().setHeight(50),
-                    width:
-                    ScreenUtil().setHeight(50),
+                    height: ScreenUtil().setHeight(50),
+                    width: ScreenUtil().setHeight(50),
                     decoration: BoxDecoration(
-                        borderRadius:
-                        BorderRadius.circular(
-                            15),
+                        borderRadius: BorderRadius.circular(15),
                         color: Colors.lightGreen,
                         //shape: BoxShape.circle,
                         border: Border.all(
                           width: 1,
-                          color:
-                          Colors.orangeAccent,
+                          color: Colors.orangeAccent,
                         )),
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
                         Align(
-                          alignment:
-                          Alignment.center,
+                          alignment: Alignment.center,
                           child: Image.file(
                             File(e.path.toString()),
                             width: 80,
@@ -558,14 +883,10 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                             child: Container(
                               height: 30,
                               width: 30,
-                              decoration:
-                              const BoxDecoration(
-                                  color: Colors
-                                      .transparent,
-                                  shape: BoxShape
-                                      .circle),
-                              child: const Icon(Icons
-                                  .cancel_outlined),
+                              decoration: const BoxDecoration(
+                                  color: Colors.transparent,
+                                  shape: BoxShape.circle),
+                              child: const Icon(Icons.cancel_outlined),
                             ),
                           ),
                         )
@@ -575,14 +896,12 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                 ),
                 //Text('${e.name}'+'${e.extension}'),
                 SizedBox(
-                  height:
-                  ScreenUtil().setHeight(20),
+                  height: ScreenUtil().setHeight(20),
                   width: ScreenUtil().setHeight(50),
                   child: Text(
                     '${e.absolute}',
                     style: TextStyle(
-                      fontSize:
-                      ScreenUtil().setSp(7),
+                      fontSize: ScreenUtil().setSp(7),
                     ),
                   ),
                 ),
@@ -592,13 +911,12 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
         }).toList(),
       );
     }
-    if(_attached==Attached.fileAttached){
+    if (_attached == Attached.fileAttached) {
       return Wrap(
         direction: Axis.horizontal,
         children: AttachedFile.attachedfiles.map((e) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 8.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
             child: Column(
               children: [
                 GestureDetector(
@@ -606,27 +924,21 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                     OpenFile.open(e.path.toString());
                   },
                   child: Container(
-                    height:
-                    ScreenUtil().setHeight(50),
-                    width:
-                    ScreenUtil().setHeight(50),
+                    height: ScreenUtil().setHeight(50),
+                    width: ScreenUtil().setHeight(50),
                     decoration: BoxDecoration(
-                        borderRadius:
-                        BorderRadius.circular(
-                            15),
+                        borderRadius: BorderRadius.circular(15),
                         color: Colors.lightGreen,
                         //shape: BoxShape.circle,
                         border: Border.all(
                           width: 1,
-                          color:
-                          Colors.orangeAccent,
+                          color: Colors.orangeAccent,
                         )),
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
                         Align(
-                          alignment:
-                          Alignment.center,
+                          alignment: Alignment.center,
                           child: Image.file(
                             File(e.path.toString()),
                             width: 80,
@@ -645,20 +957,15 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                           right: -10,
                           child: GestureDetector(
                             onTap: () {
-                              attachedFile
-                                  .removeAttachedFile(e);
+                              attachedFile.removeAttachedFile(e);
                             },
                             child: Container(
                               height: 30,
                               width: 30,
-                              decoration:
-                              const BoxDecoration(
-                                  color: Colors
-                                      .transparent,
-                                  shape: BoxShape
-                                      .circle),
-                              child: const Icon(Icons
-                                  .cancel_outlined),
+                              decoration: const BoxDecoration(
+                                  color: Colors.transparent,
+                                  shape: BoxShape.circle),
+                              child: const Icon(Icons.cancel_outlined),
                             ),
                           ),
                         )
@@ -668,14 +975,12 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                 ),
                 //Text('${e.name}'+'${e.extension}'),
                 SizedBox(
-                  height:
-                  ScreenUtil().setHeight(20),
+                  height: ScreenUtil().setHeight(20),
                   width: ScreenUtil().setHeight(50),
                   child: Text(
                     '${e.name}',
                     style: TextStyle(
-                      fontSize:
-                      ScreenUtil().setSp(7),
+                      fontSize: ScreenUtil().setSp(7),
                     ),
                   ),
                 ),
@@ -689,8 +994,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
       direction: Axis.horizontal,
       children: AttachedFile.galleryList.map((e) {
         return Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 8.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           child: Column(
             children: [
               GestureDetector(
@@ -698,39 +1002,26 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                   OpenFile.open(e.path);
                 },
                 child: Container(
-                  height:
-                  ScreenUtil().setHeight(50),
-                  width:
-                  ScreenUtil().setHeight(50),
+                  height: ScreenUtil().setHeight(50),
+                  width: ScreenUtil().setHeight(50),
                   decoration: BoxDecoration(
-                      borderRadius:
-                      BorderRadius.circular(
-                          15),
+                      borderRadius: BorderRadius.circular(15),
                       color: Colors.lightGreen,
                       //shape: BoxShape.circle,
                       border: Border.all(
                         width: 1,
-                        color:
-                        Colors.orangeAccent,
+                        color: Colors.orangeAccent,
                       )),
                   child: Stack(
                     clipBehavior: Clip.none,
                     children: [
                       Align(
-                        alignment:
-                        Alignment.center,
+                        alignment: Alignment.center,
                         child: Image.file(
                           File(e.path.toString()),
                           width: 80,
                           height: 80,
                         ),
-                        // Text(
-                        //   '${e.extension}',
-                        //   style: TextStyle(
-                        //     fontSize: ScreenUtil()
-                        //         .setSp(7),
-                        //   ),
-                        // ),
                       ),
                       Positioned(
                         top: -10,
@@ -742,14 +1033,10 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                           child: Container(
                             height: 30,
                             width: 30,
-                            decoration:
-                            const BoxDecoration(
-                                color: Colors
-                                    .transparent,
-                                shape: BoxShape
-                                    .circle),
-                            child: const Icon(Icons
-                                .cancel_outlined),
+                            decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                                shape: BoxShape.circle),
+                            child: const Icon(Icons.cancel_outlined),
                           ),
                         ),
                       )
@@ -759,14 +1046,12 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
               ),
               //Text('${e.name}'+'${e.extension}'),
               SizedBox(
-                height:
-                ScreenUtil().setHeight(20),
+                height: ScreenUtil().setHeight(20),
                 width: ScreenUtil().setHeight(50),
                 child: Text(
                   '${e.absolute}',
                   style: TextStyle(
-                    fontSize:
-                    ScreenUtil().setSp(7),
+                    fontSize: ScreenUtil().setSp(7),
                   ),
                 ),
               ),
@@ -777,39 +1062,37 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
     );
   }
 
-  openWhatsApp()async{
+  openWhatsApp() async {
     var whatsapp = "+8801611815656";
     var whatsappURl_android =
         "whatsapp://send?phone=" + whatsapp + "&text= Good Morning Sir";
     var whatappURL_ios = "https://wa.me/$whatsapp?text=${Uri.parse("hello")}";
-    if (Platform.isIOS){
+    if (Platform.isIOS) {
       // for iOS phone only
-      if (await canLaunch(whatappURL_ios)){
+      if (await canLaunch(whatappURL_ios)) {
         await launch(whatappURL_ios, forceSafariVC: false);
-      }else{
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("whatsapp no installed")));
       }
-    }else{
+    } else {
       // android , web
-      if (await canLaunch(whatsappURl_android)){
+      if (await canLaunch(whatsappURl_android)) {
         await launch(whatsappURl_android);
-      } else{
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("whatsapp no installed")));
       }
     }
   }
 
-  void openFiles(List<PlatformFile> files){
+  void openFiles(List<PlatformFile> files) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => FilePage(
               files: files,
               //onOpenedFile: openFiles,
               // file:files,
               // onOpenFile: openFiles,
-            )
-    )
-    );
+            )));
   }
 }

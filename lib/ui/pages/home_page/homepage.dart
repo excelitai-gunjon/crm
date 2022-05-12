@@ -9,7 +9,7 @@ import 'package:shahid_mahamum_sir/ui/pages/home_page/component/home_page_tab_ba
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() =>_HomePageState();
 }
 class _HomePageState extends State<HomePage> {
   //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -26,24 +26,26 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           key: customScafoldKey.scaffoldKey,
           backgroundColor: Colors.white,
-          body: Stack(
-            children: [
-              buildCustomProfileTile(context),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Stack(clipBehavior: Clip.none, children: [
-                  HomePageTab(
-                    size: size,
-                  ),
-                  const Positioned(
-                    top: -20,
-                    right: 0,
-                    left: 0,
-                    child: HomePageTabBar(),
-                  ),
-                ]),
-              ),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                buildCustomProfileTile(context),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Stack(clipBehavior: Clip.none, children: [
+                    HomePageTab(
+                      size: size,
+                    ),
+                    const Positioned(
+                      top: -20,
+                      right: 0,
+                      left: 0,
+                      child: HomePageTabBar(),
+                    ),
+                  ]),
+                ),
+              ],
+            ),
           ),
           drawer: Drawer(
             backgroundColor: const Color(0xff36013f),
@@ -112,7 +114,6 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -122,10 +123,9 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
   Widget buildCustomProfileTile(BuildContext context){
     return Container(
-      height: MediaQuery.of(context).size.height * .32, //255,
+      height: MediaQuery.of(context).size.height * .3, //255,
       width: MediaQuery.of(context).size.width,
       color: Colors.deepPurple,
       child: Stack(
@@ -159,7 +159,9 @@ class _HomePageState extends State<HomePage> {
           Align(
             alignment: Alignment.topRight,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+
+              },
               icon: const Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -189,48 +191,43 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Stack(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 4,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1),
-                                  offset: const Offset(0, 10))
-                            ],
-                            shape: BoxShape.circle,
-                            image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage("image/IMG_7546.PNG"),
-                            )),
+                    children: const [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        backgroundImage: AssetImage("image/Dr.png"),
+                        //radius: 50,
+                        minRadius: 3,
+                        maxRadius: 50,
                       ),
                       Positioned(
                           bottom:4,
                           right: 4,
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 4,
-                                color: Colors.transparent,//const Color(0xffFFA45A),
-                              ),
-                              color: Colors.transparent,
-                            ),
-                            child: const Icon(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 12,
+                            child: Icon(
                               Icons.verified,
                               color: Color(0xffFFA45A),
-                              size: 30,
+                              //size: 30,
                             ),
                           ),
+                          // Container(
+                          //   height: 30,
+                          //   width: 30,
+                          //   decoration: BoxDecoration(
+                          //     shape: BoxShape.circle,
+                          //     border: Border.all(
+                          //       width: 4,
+                          //       color: Colors.transparent,//const Color(0xffFFA45A),
+                          //     ),
+                          //     color: Colors.transparent,
+                          //   ),
+                          //   child: const Icon(
+                          //     Icons.verified,
+                          //     color: Color(0xffFFA45A),
+                          //     size: 30,
+                          //   ),
+                          // ),
                       ),
                     ],
                   ),

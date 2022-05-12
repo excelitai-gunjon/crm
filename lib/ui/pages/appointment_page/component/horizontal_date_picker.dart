@@ -42,8 +42,16 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
 
   Time? selectTime;
 
+
   @override
   Widget build(BuildContext context) {
+    TimeOfDay now = TimeOfDay.now();
+    int nowInMinutes = now.hour * 60 + now.minute;
+    print(nowInMinutes.toString()+">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<");
+
+    TimeOfDay testDate = TimeOfDay(hour: 2, minute: 20);
+    int testDateInMinutes = testDate.hour * 60 + testDate.minute;
+    print(testDateInMinutes.toString()+">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<");
     return Column(children: [
       Container(
           height: 90,
@@ -59,7 +67,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
               itemCount: 7,
               scrollDirection: Axis.horizontal,
               itemBuilder: (ctx, position) {
-                int day = DateTime.now().day + position;
+                int day = DateTime.now().day+position;
                 return GestureDetector(
                     child: FittedBox(
                         child: Container(
@@ -76,7 +84,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
                                                 ? Colors.transparent
                                                 : Colors.grey
                                             : Colors.transparent),
-                                color: day == DateTime.now().day + 1
+                                color: day == DateTime.now().day
                                     ? const Color(0xffDA8DD5)
                                     : Colors.grey.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(25)),
@@ -88,7 +96,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
                                         .add(Duration(days: position))),
                                     style: TextStyle(
                                         color: day == DateTime.now().day + 1
-                                            ? Colors.white
+                                            ? Colors.grey[700]
                                             : Colors.grey[700],
                                         fontWeight: day == DateTime.now().day
                                             ? FontWeight.bold
@@ -105,7 +113,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
                                           ? FontWeight.bold
                                           : FontWeight.normal,
                                       color: day == DateTime.now().day + 1
-                                          ? Colors.white
+                                          ? Colors.grey[500]
                                           : Colors.grey[500],
                                     ),
                                   ),
@@ -134,7 +142,10 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
           GestureDetector(
             onTap: (){
               setState(() {
-                selectTime=Time.time1;
+                if(nowInMinutes<(10*60)){
+                  selectTime=Time.time1;
+                }
+                //selectTime=Time.time2;
               });
             },
             child: Container(
@@ -173,8 +184,13 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
           ),
           GestureDetector(
             onTap: (){
+              TimeOfDay testDate = TimeOfDay(hour: 10, minute: 20);
+              int testDateInMinutes = testDate.hour * 60 + testDate.minute;
               setState(() {
-                selectTime=Time.time2;
+                if(nowInMinutes<(10*60+30)){
+                  selectTime=Time.time2;
+                }
+                //selectTime=Time.time2;
               });
             },
             child: Container(
@@ -214,7 +230,10 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
           GestureDetector(
             onTap: (){
               setState(() {
-                selectTime=Time.time3;
+                if(nowInMinutes<(11*60+0)){
+                  selectTime=Time.time3;
+                }
+                //selectTime=Time.time3;
               });
             },
             child: Container(
@@ -254,7 +273,10 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
           GestureDetector(
             onTap: (){
               setState(() {
-                selectTime=Time.time4;
+                if(nowInMinutes<(17*60+0)){
+                  selectTime=Time.time4;
+                }
+                //selectTime=Time.time4;
               });
             },
             child: Container(
@@ -293,8 +315,14 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
           ),
           GestureDetector(
             onTap: (){
+              TimeOfDay testDate = TimeOfDay(hour: 19, minute: 0);
+              int testDateInMinutes = testDate.hour * 60 + testDate.minute;
+              print(">>>>>>>>>>>>>"+"for 7:00pm "+testDateInMinutes.toString());
               setState(() {
-                selectTime=Time.time5;
+                if(nowInMinutes<(19*60+0)){
+                  selectTime=Time.time5;
+                }
+                //selectTime=Time.time5;
               });
             },
             child: Container(
@@ -334,6 +362,9 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
           GestureDetector(
             onTap: (){
               setState(() {
+                // if(nowInMinutes<(22*60+0)){
+                //   selectTime=Time.time6;
+                // }
                 selectTime=Time.time6;
               });
             },

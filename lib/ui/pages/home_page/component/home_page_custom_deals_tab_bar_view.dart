@@ -178,7 +178,7 @@ class CustomDealsTabBarView extends StatelessWidget {
                   ),
                   CustomTopDealsContainer(size: size,),
                   const SizedBox(height: 20,),
-                  CustomProductSalesContainer(size: size,),
+                  //CustomProductSalesContainer(size: size,),
                 ],
               ),
             ),
