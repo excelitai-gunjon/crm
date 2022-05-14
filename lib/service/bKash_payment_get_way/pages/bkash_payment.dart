@@ -57,7 +57,7 @@ class _BkashPaymentState extends State<BkashPayment> {
 
               _controller!.clearCache();
             },
-            onPageFinished: (_) {
+            onPageFinished: (_){
               _controller!.evaluateJavascript(
                   "javascript:callReconfigure($paymentRequest)");
               print("paymentRequest :  $paymentRequest");

@@ -1,6 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
+import 'appointment_data_error_provider.dart';
 
 class CustomGenderDropDownButtonWidget extends StatefulWidget{
   CustomGenderDropDownButtonWidget({Key? key,required this.title,required this.dropdownvalue,required this.items}) : super(key: key);
@@ -15,14 +18,15 @@ class CustomGenderDropDownButtonWidget extends StatefulWidget{
 
 class _CustomGenderDropDownButtonWidgetState extends State<CustomGenderDropDownButtonWidget> {
 
-  String dropdownvalue = 'male';
-  var items=[
-    "male",
-    "female",
-    "Other",
-  ];
+  // String dropdownvalue = 'male';
+  // var items=[
+  //   "male",
+  //   "female",
+  //   "Other",
+  // ];
   @override
   Widget build(BuildContext context){
+    final appointmentErrorData =Provider.of<AppointmentErrorData>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -58,8 +62,13 @@ class _CustomGenderDropDownButtonWidgetState extends State<CustomGenderDropDownB
                   .toList(),
               value: widget.dropdownvalue,
               onChanged: (String? newValue) {
-                setState(() {
+                setState((){
                   widget.dropdownvalue = newValue!;
+                  if(widget.dropdownvalue=="male"||widget.dropdownvalue=="female"||widget.dropdownvalue=="Other"){
+                    setState((){
+                      appointmentErrorData.setSelectGender();
+                    });
+                  }
                 });
               },
               buttonHeight: 40,

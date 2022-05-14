@@ -2,6 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import 'appointment_data_error_provider.dart';
 
 // void main() => runApp(MyApp());
 //
@@ -17,7 +20,7 @@ import 'package:intl/intl.dart';
 //   }
 // }
 enum Time{
-  time1,time2,time3,time4,time5,time6,
+  time0,time1,time2,time3,time4,time5,time6,
 }
 
 class HorizontalDateView extends StatefulWidget {
@@ -25,26 +28,24 @@ class HorizontalDateView extends StatefulWidget {
   @override
   HorizontalDateViewState createState() => HorizontalDateViewState();
 }
-
 class HorizontalDateViewState extends State<HorizontalDateView> {
   String? selectDate, selectDay;
   int? selected;
-
   bool isChecked = false;
-
-  int time1 = 1;
-  int time2 = 1;
-  int time3 = 1;
-  int time4 = 1;
-  int time5 = 1;
-
+  // int time1 = 1;
+  // int time2 = 1;
+  // int time3 = 1;
+  // int time4 = 1;
+  // int time5 = 1;
   int groupValue = 0;
-
-  Time? selectTime;
+  Time selectTime=Time.time0;
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+
+    final appointmentErrorData=Provider.of<AppointmentErrorData>(context);
+
     TimeOfDay now = TimeOfDay.now();
     int nowInMinutes = now.hour * 60 + now.minute;
     print(nowInMinutes.toString()+">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<");
@@ -52,6 +53,8 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
     TimeOfDay testDate = TimeOfDay(hour: 2, minute: 20);
     int testDateInMinutes = testDate.hour * 60 + testDate.minute;
     print(testDateInMinutes.toString()+">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<");
+
+
     return Column(children: [
       Container(
           height: 90,
@@ -119,7 +122,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
                                   ),
                                 ]))),
                     onTap: () {
-                      setState(() {
+                      setState((){
                         selectDate = DateTime.now()
                             .add(Duration(days: position))
                             .day
@@ -144,6 +147,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
               setState(() {
                 if(nowInMinutes<(10*60)){
                   selectTime=Time.time1;
+                  appointmentErrorData.setSelectTime();
                 }
                 //selectTime=Time.time2;
               });
@@ -189,6 +193,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
               setState(() {
                 if(nowInMinutes<(10*60+30)){
                   selectTime=Time.time2;
+                  appointmentErrorData.setSelectTime();
                 }
                 //selectTime=Time.time2;
               });
@@ -232,6 +237,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
               setState(() {
                 if(nowInMinutes<(11*60+0)){
                   selectTime=Time.time3;
+                  appointmentErrorData.setSelectTime();
                 }
                 //selectTime=Time.time3;
               });
@@ -275,6 +281,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
               setState(() {
                 if(nowInMinutes<(17*60+0)){
                   selectTime=Time.time4;
+                  appointmentErrorData.setSelectTime();
                 }
                 //selectTime=Time.time4;
               });
@@ -321,6 +328,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
               setState(() {
                 if(nowInMinutes<(19*60+0)){
                   selectTime=Time.time5;
+                  appointmentErrorData.setSelectTime();
                 }
                 //selectTime=Time.time5;
               });
@@ -362,10 +370,8 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
           GestureDetector(
             onTap: (){
               setState(() {
-                // if(nowInMinutes<(22*60+0)){
-                //   selectTime=Time.time6;
-                // }
                 selectTime=Time.time6;
+                appointmentErrorData.setSelectTime();
               });
             },
             child: Container(

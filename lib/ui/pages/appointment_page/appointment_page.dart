@@ -12,11 +12,9 @@ import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/date_and_
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({Key? key}) : super(key: key);
-
   @override
   State<AppointmentPage> createState() => _AppointmentPageState();
 }
-
 class _AppointmentPageState extends State<AppointmentPage> {
 
   DateTime selectedDate = DateTime.now();
@@ -79,7 +77,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         height: ScreenUtil().screenHeight-100,
                         width: ScreenUtil().screenWidth,
                         child: Image.asset(
-                          "image/IMG_3745-Background Remove.png",fit: BoxFit.fill,),
+                          "image/IMG_3745-Background Remove.png",fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ],
@@ -134,7 +133,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Row(
                                           mainAxisAlignment:
@@ -154,41 +153,41 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.star_outline,
-                                                      size: ScreenUtil()
-                                                          .setSp(12),
-                                                      color: Colors.amber,
-                                                    ),
-                                                    Text(
-                                                      "4.5",
-                                                      style: TextStyle(
-                                                        fontSize: ScreenUtil()
-                                                            .setSp(12),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                // Row(
+                                                //   children: [
+                                                //     Icon(
+                                                //       Icons.star_outline,
+                                                //       size: ScreenUtil()
+                                                //           .setSp(12),
+                                                //       color: Colors.amber,
+                                                //     ),
+                                                //     Text(
+                                                //       "4.5",
+                                                //       style: TextStyle(
+                                                //         fontSize: ScreenUtil()
+                                                //             .setSp(12),
+                                                //       ),
+                                                //     ),
+                                                //   ],
+                                                // ),
                                               ],
                                             ),
                                           ],
                                         ),
-                                        const Text("Family Physicians"),
-                                        Row(
-                                          children: [
-                                            CustomTag(
-                                              tag: "tag1",
-                                            ),
-                                            CustomTag(
-                                              tag: "tag1",
-                                            ),
-                                            CustomTag(
-                                              tag: "tag1",
-                                            ),
-                                          ],
-                                        ),
+                                        const Text("Medicine Specialist"),
+                                        // Row(
+                                        //   children: [
+                                        //     CustomTag(
+                                        //       tag: "tag1",
+                                        //     ),
+                                        //     CustomTag(
+                                        //       tag: "tag1",
+                                        //     ),
+                                        //     CustomTag(
+                                        //       tag: "tag1",
+                                        //     ),
+                                        //   ],
+                                        // ),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,

@@ -87,7 +87,6 @@ class _BkashHomePageState extends State<BkashHomePage> {
                 String amount = _amountController.text.trim();
                 String intent =
                     _intent == Intent.sale ? "sale" : "authorization";
-
                 if (amount.isEmpty){
                   _scaffoldKey.currentState!.showSnackBar(SnackBar(
                       content: Text(

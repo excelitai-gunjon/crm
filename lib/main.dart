@@ -7,6 +7,7 @@ import 'package:shahid_mahamum_sir/example/package_flutter_share_me.dart';
 import 'package:shahid_mahamum_sir/model/mobile_banking_model.dart';
 import 'package:shahid_mahamum_sir/provider/attached_file_provider.dart';
 import 'package:shahid_mahamum_sir/provider/home_page_tab_state.dart';
+import 'package:shahid_mahamum_sir/ui/pages/appointment_page/component/appointment_data_error_provider.dart';
 import 'package:shahid_mahamum_sir/ui/pages/home_page/homepage.dart';
 
 void main(){
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget{
         ChangeNotifierProvider.value(value: CustomScafoldKey()),
         ChangeNotifierProvider.value(value: AttachedFile()),
         ChangeNotifierProvider.value(value: MobileBanking()),
+        ChangeNotifierProvider.value(value: AppointmentErrorData()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),

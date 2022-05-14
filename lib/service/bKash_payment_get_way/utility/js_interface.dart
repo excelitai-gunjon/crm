@@ -3,11 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class JavaScriptInterface {
   BuildContext? context;
-
   JavaScriptInterface(context){
     this.context = context;
   }
-
   void onPaymentSuccess(String message) {
     // close BkashCheckout page
     Navigator.of(context!).pop();

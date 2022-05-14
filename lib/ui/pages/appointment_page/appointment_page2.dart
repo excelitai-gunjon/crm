@@ -18,6 +18,7 @@ import '../../../example/custom_drop_down_button.dart';
 import '../../../provider/attached_file_provider.dart';
 import '../payment_getway_oage/pay_later_page.dart';
 import '../payment_getway_oage/payment_page1.dart';
+import 'component/appointment_data_error_provider.dart';
 import 'component/custom_appointment_button.dart';
 import 'component/custom_drop_down_date_of_birth_widget.dart';
 import 'component/custom_text_form_field.dart';
@@ -35,13 +36,15 @@ class AppointmentPage2 extends StatefulWidget {
   _AppointmentPage2State createState() => _AppointmentPage2State();
 }
 
-class _AppointmentPage2State extends State<AppointmentPage2>{
+class _AppointmentPage2State extends State<AppointmentPage2> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController purposeOfAppointmentController = TextEditingController();
+  TextEditingController purposeOfAppointmentController =
+      TextEditingController();
   // TextEditingController nameController=TextEditingController();
   // TextEditingController nameController=TextEditingController();
+  bool selectTime=true;
   bool nameError = false;
   bool emailError = false;
   bool phoneNumberError = false;
@@ -77,8 +80,11 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
 
   @override
   Widget build(BuildContext context) {
+
     final attachedFile = Provider.of<AttachedFile>(context);
     final size = MediaQuery.of(context).size;
+    final appointmentErrorData=Provider.of<AppointmentErrorData>(context);
+
     return Container(
       height: size.height,
       width: size.width,
@@ -193,7 +199,7 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           GestureDetector(
-                                            onTap: (){
+                                            onTap: () {
                                               openWhatsApp();
                                             },
                                             child: Container(
@@ -261,6 +267,17 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                         height: 20,
                       ),
                       const HorizontalDateView(),
+                      appointmentErrorData.selectTime==false?Center(
+                        child: Text(
+                          "Please Select Time *",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ):Container(),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const Text(
                         "Full Name",
                         style: TextStyle(
@@ -271,9 +288,6 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                       const SizedBox(
                         height: 10,
                       ),
-                      // const CustomTextFormField(
-                      //   title: "Enter Your Name",
-                      // ),
                       TextFormField(
                         controller: nameController,
                         cursorColor: Colors.grey,
@@ -292,16 +306,16 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                                 borderSide:
                                     const BorderSide(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(10)),
-                            errorText: nameError?"enter your name":'',
+                            errorText: nameError ? "enter your name" : '',
                             errorBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: nameError?Colors.red:Colors.grey),
-                                borderRadius: BorderRadius.circular(10)
-                            ),
+                                borderSide: BorderSide(
+                                    color:
+                                        nameError ? Colors.red : Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
                             focusedErrorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(10)
-                            ),
+                                borderSide:
+                                    const BorderSide(color: Colors.green),
+                                borderRadius: BorderRadius.circular(10)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
                                     const BorderSide(color: Colors.grey),
@@ -381,14 +395,15 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                                 borderSide:
                                     const BorderSide(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(10)),
-                            errorText: emailError?"Enter Your Email":"",
+                            errorText: emailError ? "Enter Your Email" : "",
                             errorBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: emailError?Colors.red:Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: emailError ? Colors.red : Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
+                                borderSide:
+                                    const BorderSide(color: Colors.green),
                                 borderRadius: BorderRadius.circular(10)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
@@ -433,13 +448,18 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                                 borderSide:
                                     const BorderSide(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(10)),
-                            errorText: phoneNumberError?"Enter Your Phone Number":"",
+                            errorText: phoneNumberError
+                                ? "Enter Your Phone Number"
+                                : "",
                             errorBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: phoneNumberError?Colors.red:Colors.grey),
+                                borderSide: BorderSide(
+                                    color: phoneNumberError
+                                        ? Colors.red
+                                        : Colors.grey),
                                 borderRadius: BorderRadius.circular(10)),
                             focusedErrorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
+                                borderSide:
+                                    const BorderSide(color: Colors.green),
                                 borderRadius: BorderRadius.circular(10)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
@@ -481,7 +501,7 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                         height: 10,
                       ),
                       TextFormField(
-                        controller: purposeOfAppointmentController,
+                          controller: purposeOfAppointmentController,
                           maxLines: 7,
                           cursorColor: Colors.grey,
                           textInputAction: TextInputAction.next,
@@ -500,14 +520,18 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                                   borderSide:
                                       const BorderSide(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(10)),
-                              errorText: phoneNumberError?"Please enter purpose of appointment":"",
+                              errorText: phoneNumberError
+                                  ? "Please enter purpose of appointment"
+                                  : "",
                               errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: phoneNumberError?Colors.red:Colors.grey),
+                                  borderSide: BorderSide(
+                                      color: phoneNumberError
+                                          ? Colors.red
+                                          : Colors.grey),
                                   borderRadius: BorderRadius.circular(10)),
                               focusedErrorBorder: OutlineInputBorder(
                                   borderSide:
-                                      const BorderSide(color: Colors.red),
+                                      const BorderSide(color: Colors.green),
                                   borderRadius: BorderRadius.circular(10)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide:
@@ -520,8 +544,7 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                                   borderRadius: BorderRadius.circular(10)),
                               hintText: "Write here...",
                               hintStyle: const TextStyle(
-                                  fontSize: 14, color: Color(0xFF909090)))
-                      ),
+                                  fontSize: 14, color: Color(0xFF909090)))),
                       const SizedBox(
                         height: 10,
                       ),
@@ -650,6 +673,7 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
 
   Widget buildCustomAppointmentButton(
       BuildContext context, GlobalKey<FormState> formKey) {
+    final appointmentErrorData = Provider.of<AppointmentErrorData>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
       child: SizedBox(
@@ -669,12 +693,14 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
           onPressed: () {
             if (nameController.text.isNotEmpty &&
                 emailController.text.isNotEmpty &&
-                phoneNumberController.text.isNotEmpty) {
+                phoneNumberController.text.isNotEmpty &&
+                appointmentErrorData.selectTime == true) {
               if (formKey.currentState!.validate()) {
-                setState((){
+                setState(() {
+                  selectTime = true;
                   nameError = false;
-                  emailError=false;
-                  phoneNumberError=false;
+                  emailError = false;
+                  phoneNumberError = false;
                 });
                 showDialog(
                   context: context,
@@ -819,14 +845,19 @@ class _AppointmentPage2State extends State<AppointmentPage2>{
                   emailError = true;
                 });
               }
-              if (phoneNumberController.text.isEmpty) {
+              if(phoneNumberController.text.isEmpty){
                 setState(() {
                   phoneNumberError = true;
                 });
               }
-              if (purposeOfAppointmentController.text.isEmpty) {
+              if(purposeOfAppointmentController.text.isEmpty){
                 setState(() {
                   purposeOfAppointmentError = true;
+                });
+              }
+              if(appointmentErrorData.selectTime==false){
+                setState(() {
+                  selectTime = false;
                 });
               }
             }
