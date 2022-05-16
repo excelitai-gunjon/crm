@@ -6,19 +6,6 @@ import 'package:provider/provider.dart';
 
 import 'appointment_data_error_provider.dart';
 
-// void main() => runApp(MyApp());
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Flutter Tutorial',
-//       theme: ThemeData(primarySwatch: Colors.blue),
-//       home: Home(),
-//     );
-//   }
-// }
 enum Time{
   time0,time1,time2,time3,time4,time5,time6,
 }
@@ -29,23 +16,17 @@ class HorizontalDateView extends StatefulWidget {
   HorizontalDateViewState createState() => HorizontalDateViewState();
 }
 class HorizontalDateViewState extends State<HorizontalDateView> {
+
   String? selectDate, selectDay;
   int? selected;
   bool isChecked = false;
-  // int time1 = 1;
-  // int time2 = 1;
-  // int time3 = 1;
-  // int time4 = 1;
-  // int time5 = 1;
   int groupValue = 0;
   Time selectTime=Time.time0;
-
 
   @override
   Widget build(BuildContext context){
 
     final appointmentErrorData=Provider.of<AppointmentErrorData>(context);
-
     TimeOfDay now = TimeOfDay.now();
     int nowInMinutes = now.hour * 60 + now.minute;
     print(nowInMinutes.toString()+">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<");
@@ -69,7 +50,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
           child: ListView.builder(
               itemCount: 7,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (ctx, position) {
+              itemBuilder: (ctx, position){
                 int day = DateTime.now().day+position;
                 return GestureDetector(
                     child: FittedBox(
@@ -85,12 +66,14 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
                                         : selected == day
                                             ? selected == DateTime.now().day
                                                 ? Colors.transparent
-                                                : Colors.grey
-                                            : Colors.transparent),
+                                                : const Color(0xffDA8DD5)
+                                            : Colors.transparent
+                                ),
                                 color: day == DateTime.now().day
                                     ? const Color(0xffDA8DD5)
                                     : Colors.grey.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(25)),
+                                borderRadius: BorderRadius.circular(25)
+                            ),
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -121,7 +104,7 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
                                     ),
                                   ),
                                 ]))),
-                    onTap: () {
+                    onTap: (){
                       setState((){
                         selectDate = DateTime.now()
                             .add(Duration(days: position))
@@ -135,7 +118,8 @@ class HorizontalDateViewState extends State<HorizontalDateView> {
                           print('Tag' + selected.toString());
                         }
                       });
-                    });
+                    }
+                    );
               })),
       Wrap(
         //mainAxisAlignment: MainAxisAlignment.spaceBetween,

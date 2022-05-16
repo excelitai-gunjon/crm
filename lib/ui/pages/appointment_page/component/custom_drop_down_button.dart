@@ -12,6 +12,7 @@ class CustomGenderDropDownButtonWidget extends StatefulWidget{
   String dropdownvalue;
   List<String> items;
 
+
   @override
   _CustomGenderDropDownButtonWidgetState createState() => _CustomGenderDropDownButtonWidgetState();
 }
@@ -23,7 +24,21 @@ class _CustomGenderDropDownButtonWidgetState extends State<CustomGenderDropDownB
   //   "male",
   //   "female",
   //   "Other",
-  // ];
+  String? _selectItem;// ];
+  String? _errorText;// ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    if(widget.title=="Gender"){
+      _errorText="Select Gender";
+    }
+    if(widget.title=="Appointment Type"){
+      _errorText="Select Appointment Type";
+    }
+  }
+
+
   @override
   Widget build(BuildContext context){
     final appointmentErrorData =Provider.of<AppointmentErrorData>(context);
@@ -47,7 +62,7 @@ class _CustomGenderDropDownButtonWidgetState extends State<CustomGenderDropDownB
             border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 0.80),
           ),
           child: DropdownButtonHideUnderline(
-            child: DropdownButton2(
+            child: DropdownButton(
               items: widget.items
                   .map((item) => DropdownMenuItem<String>(
                 value: item,
@@ -58,22 +73,19 @@ class _CustomGenderDropDownButtonWidgetState extends State<CustomGenderDropDownB
                   ),
                 ),
               )
-              )
-                  .toList(),
-              value: widget.dropdownvalue,
-              onChanged: (String? newValue) {
+              ).toList(),
+              hint: Text(_errorText!,
+                style: _errorText=="Please Select ${widget.title}"?TextStyle(color: Colors.red):TextStyle(color: Colors.black),),
+              value: _selectItem,//widget.dropdownvalue,
+              onChanged: (String? newValue){
                 setState((){
-                  widget.dropdownvalue = newValue!;
-                  if(widget.dropdownvalue=="male"||widget.dropdownvalue=="female"||widget.dropdownvalue=="Other"){
-                    setState((){
-                      appointmentErrorData.setSelectGender();
-                    });
-                  }
+                  _selectItem=newValue!;
+                  print(widget.dropdownvalue+"<<<<<<<<<<<<>>>>>>>>>>>>>>>");
                 });
               },
-              buttonHeight: 40,
-              buttonWidth: 140,
-              itemHeight: 40,
+              // buttonHeight: 40,
+              // buttonWidth: 140,
+              //itemHeight: 40,
             ),
           ),
         ),

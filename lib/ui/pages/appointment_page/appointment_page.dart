@@ -375,7 +375,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     children: [
                       Text(
                         "About Dr. Shahid Mahamum",
-                        style: TextStyle(
+                        style:TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: ScreenUtil().setSp(15),
                         ),
@@ -391,18 +391,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           color: Colors.grey,
                         ),
                       ),
-                      // GestureDetector(
-                      //   onTap: () => _selectDate(context),
-                      //   child: Row(
-                      //     children: [
-                      //       Text(formattedDate.toString(),style: TextStyle(
-                      //         fontSize: ScreenUtil().setSp(20),
-                      //         fontWeight: FontWeight.bold,
-                      //       ),),
-                      //       const Icon(Icons.keyboard_arrow_down_outlined),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

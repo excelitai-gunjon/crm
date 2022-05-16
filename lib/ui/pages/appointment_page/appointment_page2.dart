@@ -24,13 +24,13 @@ import 'component/custom_drop_down_date_of_birth_widget.dart';
 import 'component/custom_text_form_field.dart';
 import 'component/file_page.dart';
 
-enum Attached {
+enum Attached{
   gallery,
   camera,
   fileAttached,
 }
 
-class AppointmentPage2 extends StatefulWidget {
+class AppointmentPage2 extends StatefulWidget{
   const AppointmentPage2({Key? key}) : super(key: key);
   @override
   _AppointmentPage2State createState() => _AppointmentPage2State();
@@ -40,11 +40,11 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController purposeOfAppointmentController =
-      TextEditingController();
+  TextEditingController purposeOfAppointmentController = TextEditingController();
   // TextEditingController nameController=TextEditingController();
   // TextEditingController nameController=TextEditingController();
   bool selectTime=true;
+  bool selectGender=true;
   bool nameError = false;
   bool emailError = false;
   bool phoneNumberError = false;
@@ -77,10 +77,13 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
   int value1 = 1;
   int value2 = 2;
   bool selected = false;
+  String? _selectItem;// ];
+  String? _selectAppointmentItem;// ];
+  String? _errorTextGender="Select Gender";
+  String? _errorTextAppointment="Select Appointment";
 
   @override
   Widget build(BuildContext context) {
-
     final attachedFile = Provider.of<AttachedFile>(context);
     final size = MediaQuery.of(context).size;
     final appointmentErrorData=Provider.of<AppointmentErrorData>(context);
@@ -132,7 +135,8 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                               child: Container(
                                 decoration: BoxDecoration(
                                     //color: Colors.green,
-                                    borderRadius: BorderRadius.circular(20)),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
                                 height: ScreenUtil().screenHeight,
                                 width: ScreenUtil().screenWidth / 2,
                                 child: Stack(
@@ -247,7 +251,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                         height: 20,
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: (){
                           //_selectDate(context);
                         },
                         child: Row(
@@ -267,7 +271,8 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                         height: 20,
                       ),
                       const HorizontalDateView(),
-                      appointmentErrorData.selectTime==false?Center(
+                      appointmentErrorData.selectTime==false?
+                      Center(
                         child: Text(
                           "Please Select Time *",
                           style: TextStyle(
@@ -306,7 +311,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                 borderSide:
                                     const BorderSide(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(10)),
-                            errorText: nameError ? "enter your name" : '',
+                            errorText: nameError ?"enter your name" : '',
                             errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color:
@@ -326,41 +331,109 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                 borderRadius: BorderRadius.circular(10)),
                             hintText: "Enter Your Name",
                             hintStyle: const TextStyle(
-                                fontSize: 14, color: Color(0xFF909090))),
+                                fontSize: 14, color: Color(0xFF909090)
+                            )),
                       ),
-                      // nameError
-                      //     ? Text(
-                      //         "Enter Your Name",
-                      //         style: TextStyle(
-                      //           color: Colors.red
-                      //         ),
-                      //       )
-                      //     : Container(),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-                      CustomGenderDropDownButtonWidget(
-                        title: "Gender",
-                        dropdownvalue: "Select Gender",
-                        items: const [
-                          "Select Gender",
-                          "male",
-                          "female",
-                          "Other",
-                        ],
+                      ///
+                      Text("Gender",style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        //fontSize:
+                      ),),
+                      const SizedBox(
+                        height: 10,
                       ),
+                      Container(
+                        height: 50,
+                        width: ScreenUtil().screenWidth,
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 0.80),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            items: [
+                              "male",
+                              "female",
+                              "Other",
+                            ].map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            )
+                            ).toList(),
+                            hint: Text(_errorTextGender!,
+                              style: _errorTextGender=="Please Select Gender"?TextStyle(color: Colors.red):TextStyle(color: Colors.black),),
+                            value: _selectItem,//widget.dropdownvalue,
+                            onChanged: (String? newValue){
+                              setState((){
+                                _selectItem=newValue!;
+                                print(_selectItem!+"<<<<<<<<<<<<>>>>>>>>>>>>>>>");
+                              });
+                            },
+                            // buttonHeight: 40,
+                            // buttonWidth: 140,
+                            //itemHeight: 40,
+                          ),
+                        ),
+                      ),
+                      ///
                       const SizedBox(
                         height: 20,
                       ),
-                      CustomGenderDropDownButtonWidget(
-                        title: "Appointment Type",
-                        dropdownvalue: "Select Type",
-                        items: const [
-                          "Select Type",
-                          "Off Line",
-                          "On Line",
-                        ],
+                      ///
+                      ///
+                      Text("Appointment Type",style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        //fontSize:
+                      ),),
+                      const SizedBox(
+                        height: 10,
                       ),
+                      Container(
+                        height: 50,
+                        width: ScreenUtil().screenWidth,
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 0.80),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            items: [
+                              "On Line",
+                              "Off Line",
+                            ].map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            )
+                            ).toList(),
+                            hint: Text(_errorTextAppointment!,
+                              style: _errorTextAppointment=="Please Select Appointment Type"?TextStyle(color: Colors.red):TextStyle(color: Colors.black),),
+                            value: _selectAppointmentItem,//widget.dropdownvalue,
+                            onChanged: (String? newValue){
+                              setState((){
+                                _selectAppointmentItem=newValue!;
+                                print(_selectAppointmentItem!+"<<<<<<<<<<<<>>>>>>>>>>>>>>>");
+                              });
+                            },
+                            // buttonHeight: 40,
+                            // buttonWidth: 140,
+                            //itemHeight: 40,
+                          ),
+                        ),
+                      ),
+                      ///
+                      ///
                       const SizedBox(
                         height: 20,
                       ),
@@ -374,9 +447,6 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                       const SizedBox(
                         height: 10,
                       ),
-                      // const CustomTextFormField(
-                      //   title: "Enter Your email",
-                      // ),
                       TextFormField(
                         controller: emailController,
                         cursorColor: Colors.grey,
@@ -412,8 +482,9 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     color: Color(0xff0984e3)), //Colors.amber),
-                                borderRadius: BorderRadius.circular(10)),
-                            hintText: "Enter Your Email",
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            hintText: "Enter Your Email ",
                             hintStyle: const TextStyle(
                                 fontSize: 14, color: Color(0xFF909090))),
                       ),
@@ -434,7 +505,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                         controller: phoneNumberController,
                         cursorColor: Colors.grey,
                         textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
@@ -513,19 +584,21 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                               labelText: '', //widget.title,//widget.labelText,
                               //errorText: widget.errorText,
                               labelStyle: const TextStyle(
-                                  color: Colors.black87, fontSize: 18),
+                                  color: Colors.black87, fontSize: 18,
+                              ),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
                               border: OutlineInputBorder(
                                   borderSide:
                                       const BorderSide(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10)),
-                              errorText: phoneNumberError
+                                  borderRadius: BorderRadius.circular(10),
+                              ),
+                              errorText: purposeOfAppointmentError
                                   ? "Please enter purpose of appointment"
                                   : "",
                               errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: phoneNumberError
+                                      color: purposeOfAppointmentError
                                           ? Colors.red
                                           : Colors.grey),
                                   borderRadius: BorderRadius.circular(10)),
@@ -544,7 +617,9 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                                   borderRadius: BorderRadius.circular(10)),
                               hintText: "Write here...",
                               hintStyle: const TextStyle(
-                                  fontSize: 14, color: Color(0xFF909090)))),
+                                  fontSize: 14, color: Color(0xFF909090)
+                              ))
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -694,7 +769,9 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
             if (nameController.text.isNotEmpty &&
                 emailController.text.isNotEmpty &&
                 phoneNumberController.text.isNotEmpty &&
-                appointmentErrorData.selectTime == true) {
+                appointmentErrorData.selectTime == true&&
+                _selectItem!.isNotEmpty&&
+                _selectAppointmentItem!.isNotEmpty) {
               if (formKey.currentState!.validate()) {
                 setState(() {
                   selectTime = true;
@@ -859,17 +936,25 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                 setState(() {
                   selectTime = false;
                 });
+              }//appointmentErrorData.selectGender
+              if(_selectItem==null){
+                setState(() {
+                  _errorTextGender="Please Select Gender";
+                });
               }
-            }
-            //avigator.push(context, MaterialPageRoute(builder: (context)=>const AppointmentPage2()));;
+              if(_selectAppointmentItem==null){
+                setState((){
+                  _errorTextAppointment="Please Select Appointment Type";
+                });
+              }
+            }//avigator.push(context, MaterialPageRoute(builder: (context)=>const AppointmentPage2()));;
           },
           child: const Text("Book Appointment"),
         ),
       ),
     );
   }
-
-  Widget buildWrap(AttachedFile attachedFile) {
+  Widget buildWrap(AttachedFile attachedFile){
     if (_attached == Attached.gallery) {
       return Wrap(
         direction: Axis.horizontal,
@@ -879,7 +964,7 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () {
+                  onTap: (){
                     OpenFile.open(e.path);
                   },
                   child: Container(
@@ -975,13 +1060,6 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
                             width: 80,
                             height: 80,
                           ),
-                          // Text(
-                          //   '${e.extension}',
-                          //   style: TextStyle(
-                          //     fontSize: ScreenUtil()
-                          //         .setSp(7),
-                          //   ),
-                          // ),
                         ),
                         Positioned(
                           top: -10,
@@ -1121,9 +1199,6 @@ class _AppointmentPage2State extends State<AppointmentPage2> {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => FilePage(
               files: files,
-              //onOpenedFile: openFiles,
-              // file:files,
-              // onOpenFile: openFiles,
             )));
   }
 }
